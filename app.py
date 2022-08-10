@@ -56,5 +56,5 @@ with eda:
              		file_name="Loan Amount Distribution.png",
              		mime="image/png")
 	fig3 = plt.figure(figsize=(10,10))
-	fig3 = px.pie(rawdf, values="loan_status", names="loan_status")
+	fig3 = rawdf['loan_status'].value_counts().plot(kind='pie')
 	st.pyplot(fig3)
