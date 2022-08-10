@@ -10,6 +10,7 @@ import numpy as np
 
 header = st.container()
 rawdata = st.container()
+eda = st.container()
 
 with header:
 	font="sans serif"
@@ -29,4 +30,17 @@ with rawdata:
 	rawd = rawdf.to_csv().encode('utf-8')
 	st.download_button('Download Data', data=rawd, file_name='Raw Data.csv', help='Download Data in CSV format')
 	st.text('Raw Data Structure')
-	st.write(rawdf.info())
+	
+with eda:
+	st.subheader("Exploratory Data Analysis", anchor ='EDA')
+	sns.set_theme(style="whitegrid")
+	fig1 = plt.figure(figsize=(10,10))
+	snsa = sns.countplot(x="loan_status", data=df).set(title='Loan Data Distribution')
+	plt.savefig('ouputa.png')
+	st.pyplot(fig1)
+	with open("ouputa.png", "rb") as file:
+     			btn = st.download_button(
+             		label="Download Plot",
+             		data=file,
+             		file_name="Data Distribution.png",
+             		mime="image/png")
