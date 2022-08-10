@@ -39,7 +39,7 @@ with eda:
 	plt.savefig('ouputa.png')
 	st.pyplot(fig1)
 	#st.barchart(rawdf['loan_status'])
-	st.write(rawdf[loan_status])
+	st.write(rawdf['loan_status'])
 	with open("ouputa.png", "rb") as file:
      			btn = st.download_button(
              		label="Download Plot",
