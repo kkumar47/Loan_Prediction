@@ -62,7 +62,7 @@ with eda:
 	snsc = sns.heatmap(rawdf.corr(), annot=True, cmap="viridis")
 	plt.savefig('ouputc.png')
 	st.pyplot(fig3)
-	with open("ouputb.png", "rb") as file:
+	with open("ouputc.png", "rb") as file:
      			btn = st.download_button(
              		label="Download Plot",
              		data=file,
