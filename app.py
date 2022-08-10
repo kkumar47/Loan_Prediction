@@ -29,7 +29,7 @@ with rawdata:
 	st.dataframe(rawdf.head(10))
 	rawd = rawdf.to_csv().encode('utf-8')
 	st.download_button('Download Data', data=rawd, file_name='Raw Data.csv', help='Download Data in CSV format')
-	st.write(rawdf.corr())
+	#st.write(rawdf.corr())
 	
 	
 with eda:
@@ -55,6 +55,16 @@ with eda:
              		data=file,
              		file_name="Loan Amount Distribution.png",
              		mime="image/png")
+	#fig3 = plt.figure(figsize=(10,10))
+	#rawdf['loan_status'].value_counts().plot(kind='pie')
+	#st.pyplot(fig3)
 	fig3 = plt.figure(figsize=(10,10))
-	rawdf['loan_status'].value_counts().plot(kind='pie')
+	snsc = sns.heatmap(rawdf.corr(), annot=True, cmap="viridis")
+	plt.savefig('ouputc.png')
 	st.pyplot(fig3)
+	with open("ouputb.png", "rb") as file:
+     			btn = st.download_button(
+             		label="Download Plot",
+             		data=file,
+             		file_name="Correlation Plot.png",
+             		mime="image/png")
