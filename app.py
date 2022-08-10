@@ -35,7 +35,7 @@ with eda:
 	st.subheader("Exploratory Data Analysis", anchor ='EDA')
 	sns.set_theme(style="whitegrid")
 	fig1 = plt.figure(figsize=(10,10))
-	snsa = sns.countplot(x="loan_status", data=df).set(title='Loan Data Distribution')
+	snsa = sns.countplot(x="loan_status", data=rawdf).set(title='Loan Data Distribution')
 	plt.savefig('ouputa.png')
 	st.pyplot(fig1)
 	with open("ouputa.png", "rb") as file:
