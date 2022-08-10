@@ -29,7 +29,7 @@ with rawdata:
 	st.dataframe(rawdf.head(10))
 	rawd = rawdf.to_csv().encode('utf-8')
 	st.download_button('Download Data', data=rawd, file_name='Raw Data.csv', help='Download Data in CSV format')
-	st.text('Raw Data Structure')
+	
 	
 with eda:
 	st.subheader("Exploratory Data Analysis", anchor ='EDA')
@@ -43,4 +43,14 @@ with eda:
              		label="Download Plot",
              		data=file,
              		file_name="Data Distribution.png",
+             		mime="image/png")
+	fig2 = plt.figure(figsize=(10,10))
+	snsb = sns.histplot(x="loan_amnt", data=rawdf).set(title='Loan Amount Distribution')
+	plt.savefig('ouputb.png')
+	st.pyplot(fig2)
+	with open("ouputb.png", "rb") as file:
+     			btn = st.download_button(
+             		label="Download Plot",
+             		data=file,
+             		file_name="Loan Amount Distribution.png",
              		mime="image/png")
