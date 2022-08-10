@@ -45,7 +45,7 @@ with eda:
              		file_name="Data Distribution.png",
              		mime="image/png")
 	fig2 = plt.figure(figsize=(10,10))
-	snsb = sns.histplot(x="loan_amnt", data=rawdf,binwidth=5, kde=True).set(title='Loan Amount Distribution')
+	snsb = sns.histplot(x="loan_amnt", data=rawdf, kde=True).set(title='Loan Amount Distribution')
 	plt.savefig('ouputb.png')
 	st.pyplot(fig2)
 	with open("ouputb.png", "rb") as file:
