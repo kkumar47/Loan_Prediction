@@ -29,6 +29,7 @@ with rawdata:
 	st.dataframe(rawdf.head(10))
 	rawd = rawdf.to_csv().encode('utf-8')
 	st.download_button('Download Data', data=rawd, file_name='Raw Data.csv', help='Download Data in CSV format')
+	st.write(rawdf.corr())
 	
 	
 with eda:
