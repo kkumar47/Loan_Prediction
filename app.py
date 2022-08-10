@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-
+import plotly.express as px
 
 
 
@@ -55,3 +55,6 @@ with eda:
              		data=file,
              		file_name="Loan Amount Distribution.png",
              		mime="image/png")
+	fig3 = plt.figure(figsize=(10,10))
+	fig3 = px.pie(rawdf, values=rawdfvalue_counts().values, names="loan_status")
+	st.pyplot(fig3)
