@@ -38,9 +38,6 @@ with eda:
 	snsa = sns.countplot(x="loan_status", data=rawdf).set(title='Loan Data Distribution')
 	plt.savefig('ouputa.png')
 	st.pyplot(fig1)
-	x= (rawdf['loan_status']).to_frame()
-	st.bar_chart(x)
-	#st.write(type((rawdf['loan_status']).to_frame()))
 	with open("ouputa.png", "rb") as file:
      			btn = st.download_button(
              		label="Download Plot",
