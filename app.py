@@ -171,8 +171,8 @@ with pprocess:
 	st.subheader("Pre-Process Data", anchor ='EDA')
 	col3, col4 = st.columns(2)
 	with col3:
-		st.markdown('_Data Information_')
-		st.write(rawdf.info())
-	with col4:
 		st.markdown('_Missing Value Count by Attribute_')
 		st.write(rawdf.isnull().sum())
+	with col4:
+		st.markdown('_Missing Value Count by Attribute in percentage_')
+		st.write(100* rawdf.isnull().sum()/len(rawdf))
