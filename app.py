@@ -82,7 +82,7 @@ with eda:
 	col1, col2 = st.columns(2)
 	with col1:
 		st.markdown('**_Installment vs Loan Amount_**')
-		fig4 = plt.figure(figsize=(10,10))
+		fig4 = plt.figure(figsize=(6,6))
 		snsd = sns.scatterplot(x="installment", y="loan_amnt", hue='loan_status', data=rawdf)
 		plt.savefig('ouputd.png')
 		st.pyplot(fig4)
@@ -93,8 +93,8 @@ with eda:
              			file_name="Installment vs Loan Amount.png",
              			mime="image/png")
 	with col2:
-		st.markdown('**Loan Status vs Loan Amount_**')
-		fig5 = plt.figure(figsize=(10,10))
+		st.markdown('**_Loan Status vs Loan Amount_**')
+		fig5 = plt.figure(figsize=(6,6))
 		snse = sns.boxplot(x="loan_status", y="loan_amnt",  data=rawdf)
 		plt.savefig('oupute.png')
 		st.pyplot(fig5)
