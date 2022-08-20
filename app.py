@@ -104,6 +104,33 @@ with eda:
              			data=file,
              			file_name="Box Plot.png",
              			mime="image/png")
+	
+	ggrade = st.radio('Select Model Optimizer',('Grade','Subgrade'))
+	if ggrade == 'Grade':
+		st.markdown('**_Loan Status vs Grade_**')
+		fig6 = plt.figure(figsize=(8,8))
+		snsf = sns.countplot(x="grade", data=rawdf, hue="loan_status")
+		plt.savefig('ouputf.png')
+		st.pyplot(fig6)
+		with open("ouputf.png", "rb") as file:
+     				btn = st.download_button(
+             			label="Download Plot",
+             			data=file,
+             			file_name="Loan Status vs Grade.png",
+             			mime="image/png")
+	elif ggrade == 'Subgrade':
+		st.markdown('**_Loan Status vs SubGrade_**')
+		subgrade_order = sorted(rawdf["sub_grade"].unique())
+		fig7 = plt.figure(figsize=(8,8))
+		snsg = sns.countplot(x="sub_grade", data=rawdf, palette="coolwarm", order=subgrade_order, hue="loan_status")
+		plt.savefig('ouputg.png')
+		st.pyplot(fig7)
+		with open("ouputg.png", "rb") as file:
+     				btn = st.download_button(
+             			label="Download Plot",
+             			data=file,
+             			file_name="Loan Status vs SubGrade.png",
+             			mime="image/png")
 	#st.balloons()
 	#plt.boxplot(rawdf['loan_amnt'])
 	#st.pyplot(fig4)
