@@ -35,29 +35,32 @@ with rawdata:
 with eda:
 	st.subheader("Exploratory Data Analysis", anchor ='EDA')
 	sns.set_theme(style="whitegrid")
-	fig1 = plt.figure(figsize=(10,10))
-	snsa = sns.countplot(x="loan_status", data=rawdf).set(title='Loan Data Distribution')
-	plt.savefig('ouputa.png')
-	st.pyplot(fig1)
-	#fign = plt.figure(figsize=(10,10))
-	fign=px.bar(rawdf, x='loan_status')
-	st.plotly_chart(fign)
-	with open("ouputa.png", "rb") as file:
-     			btn = st.download_button(
-             		label="Download Plot",
-             		data=file,
-             		file_name="Data Distribution.png",
-             		mime="image/png")
-	fig2 = plt.figure(figsize=(10,10))
-	snsb = sns.histplot(x="loan_amnt", data=rawdf, kde=True).set(title='Loan Amount Distribution')
-	plt.savefig('ouputb.png')
-	st.pyplot(fig2)
-	with open("ouputb.png", "rb") as file:
-     			btn = st.download_button(
-             		label="Download Plot",
-             		data=file,
-             		file_name="Loan Amount Distribution.png",
-             		mime="image/png")
+	col1, col2 = st.columns(2)
+	with col1:
+		fig1 = plt.figure(figsize=(5,5))
+		snsa = sns.countplot(x="loan_status", data=rawdf).set(title='Loan Data Distribution')
+		plt.savefig('ouputa.png')
+		st.pyplot(fig1)
+		#fign = plt.figure(figsize=(5,5))
+		#fign=px.bar(rawdf, x='loan_status')
+		#st.plotly_chart(fign)
+		with open("ouputa.png", "rb") as file:
+     				btn = st.download_button(
+             			label="Download Plot",
+             			data=file,
+             			file_name="Data Distribution.png",
+             			mime="image/png")
+	with col2:
+		fig2 = plt.figure(figsize=(5,5))
+		snsb = sns.histplot(x="loan_amnt", data=rawdf, kde=True).set(title='Loan Amount Distribution')
+		plt.savefig('ouputb.png')
+		st.pyplot(fig2)
+		with open("ouputb.png", "rb") as file:
+     				btn = st.download_button(
+             			label="Download Plot",
+             			data=file,
+             			file_name="Loan Amount Distribution.png",
+             			mime="image/png")
 	#fig3 = plt.figure(figsize=(10,10))
 	#rawdf['loan_status'].value_counts().plot(kind='pie')
 	#st.pyplot(fig3)
@@ -72,5 +75,5 @@ with eda:
              		file_name="Correlation Plot.png",
              		mime="image/png")
 	fig4 = plt.figure(figsize=(10,10))
-	plt.boxplot(rawdf['loan_amnt'])
-	st.pyplot(fig4)
+	#plt.boxplot(rawdf['loan_amnt'])
+	#st.pyplot(fig4)
