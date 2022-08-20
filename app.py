@@ -167,7 +167,7 @@ with eda:
              		mime="image/png")
 
 			
-with process:
+with pprocess:
 	st.subheader("Pre-Process Data", anchor ='EDA')
 	col3, col4 = st.columns(2)
 	with col3:
