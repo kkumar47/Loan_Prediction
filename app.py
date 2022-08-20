@@ -195,7 +195,7 @@ with pprocess:
 			st.write(rawdf.isnull().sum())
 		st.success('Preprocess Completed!!')
 	elif pprocessc == 'No':
-		st.markdown('**Preprocess Stopped...Select Yes to Continue**')
+		st.warning('Preprocess Stopped...Select Yes to Continue', icon="⚠️")
 		st.stop()
 				
 		
