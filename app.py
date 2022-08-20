@@ -6,6 +6,7 @@ import numpy as np
 import plotly.express as px
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
+import time
 
 
 
@@ -176,3 +177,7 @@ with pprocess:
 	with col4:
 		st.markdown('_Missing Value Count by Attribute in percentage_')
 		st.write(100* rawdf.isnull().sum()/len(rawdf))
+	my_bar = st.progress(0)
+	for percent_complete in range(100):
+     		time.sleep(0.1)
+     		my_bar.progress(percent_complete + 1)
