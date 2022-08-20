@@ -35,10 +35,11 @@ with rawdata:
 with eda:
 	st.subheader("Exploratory Data Analysis", anchor ='EDA')
 	sns.set_theme(style="whitegrid")
-	col1, col2 = st.columns(2)
-	with col1:
+	ddist= st.selectbox('Select Data Distribution Plot', ('Overall Data','Loan Amount'), index =0, help='Select the distribution plot')
+	
+	if ddist == 'Overall Data':
 		st.markdown('**_Loan Data Distribution_**')
-		fig1 = plt.figure(figsize=(6,6))
+		fig1 = plt.figure(figsize=(8,8))
 		snsa = sns.countplot(x="loan_status", data=rawdf).set(title='Loan Data Distribution')
 		plt.savefig('ouputa.png')
 		st.pyplot(fig1)
@@ -51,7 +52,7 @@ with eda:
              			data=file,
              			file_name="Data Distribution.png",
              			mime="image/png")
-	with col2:
+	elif ddist == 'Loan Amount':
 		st.markdown('**_Loan Amount Distribution_**')
 		fig2 = plt.figure(figsize=(6,6))
 		snsb = sns.histplot(x="loan_amnt", hue ='loan_status',data=rawdf, kde=True).set(title='Loan Amount Distribution')
