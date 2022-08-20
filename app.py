@@ -158,12 +158,12 @@ with eda:
 	snsi = rawdf.corr()["loan_repaid"].sort_values().drop("loan_repaid").plot(kind="bar")
 	plt.savefig('ouputi.png')
 	st.pyplot(fig9)
-		with open("ouputi.png", "rb") as file:
-     				btn = st.download_button(
-             			label="Download Plot",
-             			data=file,
-             			file_name="Encoded Correlation plot.png",
-             			mime="image/png")
+	with open("ouputi.png", "rb") as file:
+     			btn = st.download_button(
+             		label="Download Plot",
+             		data=file,
+             		file_name="Encoded Correlation plot.png",
+             		mime="image/png")
 	#st.balloons()
 	#plt.boxplot(rawdf['loan_amnt'])
 	#st.pyplot(fig4)
