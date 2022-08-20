@@ -177,7 +177,7 @@ with pprocess:
 	with col4:
 		st.markdown('_Missing Value Count by Attribute in percentage_')
 		st.write(100* rawdf.isnull().sum()/len(rawdf))
-	pprocessc = st.radio('Continue Pre-process Data',('No','Yes'))
+	pprocessc = st.radio('Continue Handling Null',('No','Yes'))
 	if pprocessc == 'Yes':
 		with st.spinner('Preprocessing and Handling Nulls...'):
 			#Dropping unwanted Columns
@@ -192,10 +192,12 @@ with pprocess:
 				else:
 					return mort_acc
 			rawdf["mort_acc"] = rawdf.apply(lambda x: fill_mort_acc(x["total_acc"],x["mort_acc"]),axis=1)
-			st.write(rawdf.isnull().sum())
-		st.success('Preprocess Completed!!')
+			rawdf = rawdf.dropna()
+		st.success('Preprocess Completed!!', icon:"✅")
+		st.markdown('_Missing Value count post Handling count_')
+		st.write(rawdf.isnull().sum())
 	elif pprocessc == 'No':
-		st.warning('Preprocess Stopped...Select Yes to Continue', icon="⚠️")
+		st.warning('Null Handling Stopped...Select Yes to Continue', icon="⚠️")
 		st.stop()
 				
 		
