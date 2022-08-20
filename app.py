@@ -193,7 +193,7 @@ with pprocess:
 					return mort_acc
 			rawdf["mort_acc"] = rawdf.apply(lambda x: fill_mort_acc(x["total_acc"],x["mort_acc"]),axis=1)
 			rawdf = rawdf.dropna()
-		st.success('Preprocess Completed!!', icon:"✅")
+		st.success('Preprocess Completed!!')
 		st.markdown('_Missing Value count post Handling count_')
 		st.write(rawdf.isnull().sum())
 	elif pprocessc == 'No':
