@@ -37,7 +37,8 @@ with eda:
 	sns.set_theme(style="whitegrid")
 	col1, col2 = st.columns(2)
 	with col1:
-		fig1 = plt.figure(figsize=(5,5))
+		st.text('Loan Data Distribution')
+		fig1 = plt.figure(figsize=(6,6))
 		snsa = sns.countplot(x="loan_status", data=rawdf).set(title='Loan Data Distribution')
 		plt.savefig('ouputa.png')
 		st.pyplot(fig1)
@@ -51,7 +52,8 @@ with eda:
              			file_name="Data Distribution.png",
              			mime="image/png")
 	with col2:
-		fig2 = plt.figure(figsize=(5,5))
+		st.text('Loan Amount Distribution')
+		fig2 = plt.figure(figsize=(6,6))
 		snsb = sns.histplot(x="loan_amnt", data=rawdf, kde=True).set(title='Loan Amount Distribution')
 		plt.savefig('ouputb.png')
 		st.pyplot(fig2)
