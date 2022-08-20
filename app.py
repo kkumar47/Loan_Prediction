@@ -37,7 +37,7 @@ with eda:
 	sns.set_theme(style="whitegrid")
 	col1, col2 = st.columns(2)
 	with col1:
-		st.text('Loan Data Distribution')
+		st.markdown('**_Loan Data Distribution_**')
 		fig1 = plt.figure(figsize=(6,6))
 		snsa = sns.countplot(x="loan_status", data=rawdf).set(title='Loan Data Distribution')
 		plt.savefig('ouputa.png')
@@ -52,7 +52,7 @@ with eda:
              			file_name="Data Distribution.png",
              			mime="image/png")
 	with col2:
-		st.text('Loan Amount Distribution')
+		st.text('**_Loan Amount Distribution_**')
 		fig2 = plt.figure(figsize=(6,6))
 		snsb = sns.histplot(x="loan_amnt", data=rawdf, kde=True).set(title='Loan Amount Distribution')
 		plt.savefig('ouputb.png')
@@ -66,6 +66,7 @@ with eda:
 	#fig3 = plt.figure(figsize=(10,10))
 	#rawdf['loan_status'].value_counts().plot(kind='pie')
 	#st.pyplot(fig3)
+	st.markdown('**_Correlation Plot_**')
 	fig3 = plt.figure(figsize=(10,10))
 	snsc = sns.heatmap(rawdf.corr(), annot=True, cmap="viridis")
 	plt.savefig('ouputc.png')
