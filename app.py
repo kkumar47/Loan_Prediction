@@ -41,7 +41,7 @@ with eda:
 	st.pyplot(fig1)
 	#fign = plt.figure(figsize=(10,10))
 	fign=px.bar(rawdf, x='loan_status')
-	st.write(fign)
+	st.plotly_chart(fign)
 	with open("ouputa.png", "rb") as file:
      			btn = st.download_button(
              		label="Download Plot",
