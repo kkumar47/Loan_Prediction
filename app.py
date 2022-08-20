@@ -23,8 +23,8 @@ def raw_data():
 rawdf = raw_data()
 
 with rawdata:
-	st.subheader("Lending Club Loan Dataset", anchor ='The Data')
-	st.text('Raw Data')
+	st.subheader("Lending Club Loan Raw Dataset", anchor ='The Data')
+	
 	#The raw data is displayed here
 	st.dataframe(rawdf.head(10))
 	rawd = rawdf.to_csv().encode('utf-8')
