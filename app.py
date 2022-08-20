@@ -131,7 +131,7 @@ with eda:
              			data=file,
              			file_name="Loan Status vs SubGrade.png",
              			mime="image/png")
-	sugrade = st.radio('Do you want to Explore the Subgrades that doesn't get paid back a lot? ',('Yes','No'))
+	sugrade = st.radio('Do you want to Explore the Subgrades that does not get paid back a lot? ',('Yes','No'))
 	if sugrade == 'Yes':
 		st.markdown('_Exploring Grades that does not get paid back a lot_')
 		fig8 = plt.figure(figsize=(8,8))
