@@ -75,5 +75,6 @@ with eda:
              		file_name="Correlation Plot.png",
              		mime="image/png")
 	fig4 = plt.figure(figsize=(10,10))
+	st.balloons()
 	#plt.boxplot(rawdf['loan_amnt'])
 	#st.pyplot(fig4)
