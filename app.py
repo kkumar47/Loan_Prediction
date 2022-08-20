@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import plotly.express as px
-
+from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
 
 
 
@@ -137,7 +138,7 @@ with eda:
 		fig8 = plt.figure(figsize=(8,8))
 		f_g = rawdf[(rawdf["grade"]=="F") | (rawdf["grade"]=="G")]
 		subgrade_order = sorted(f_g["sub_grade"].unique())
-		snsg = sns.countplot(x="sub_grade", data=f_g, palette="coolwarm", order=subgrade_order, hue="loan_status")
+		snsh = sns.countplot(x="sub_grade", data=f_g, palette="coolwarm", order=subgrade_order, hue="loan_status")
 		plt.savefig('ouputh.png')
 		st.pyplot(fig8)
 		with open("ouputh.png", "rb") as file:
@@ -148,6 +149,21 @@ with eda:
              			mime="image/png")	   
 	elif sugrade == 'No':
 		st.markdown('_No Investigation Selected_')
+	
+	le = preprocessing.LabelEncoder()
+	le.fit(rawdf['loan_status'])
+	rawdf['loan_repaid']=le.transform(rawdf['loan_status'])
+	st.markdown('**_Correlation Plot with Encoded Loan Status-Loan Repaid_**')
+	fig9 = plt.figure(figsize=(8,8))
+	snsi = rawdf.corr()["loan_repaid"].sort_values().drop("loan_repaid").plot(kind="bar")
+	plt.savefig('ouputi.png')
+	st.pyplot(fig9)
+		with open("ouputi.png", "rb") as file:
+     				btn = st.download_button(
+             			label="Download Plot",
+             			data=file,
+             			file_name="Encoded Correlation plot.png",
+             			mime="image/png")
 	#st.balloons()
 	#plt.boxplot(rawdf['loan_amnt'])
 	#st.pyplot(fig4)
