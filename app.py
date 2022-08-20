@@ -177,22 +177,26 @@ with pprocess:
 	with col4:
 		st.markdown('_Missing Value Count by Attribute in percentage_')
 		st.write(100* rawdf.isnull().sum()/len(rawdf))
-	my_bar = st.progress(0)
-	with st.spinner('Preprocessing and Handling Nulls...'):
-		#Dropping unwanted Columns
-		rawdf = rawdf.drop("emp_title", axis=1)
-		rawdf = rawdf.drop("emp_length", axis=1)
-		rawdf = rawdf.drop("title", axis=1)
-		#Handling Null
-		total_acc_avg = rawdf.groupby("total_acc").mean()["mort_acc"]
-		def fill_mort_acc(total_acc,mort_acc):
-			if np.isnan(mort_acc):
-				return total_acc_avg[total_acc]
-			else:
-				return mort_acc
-		rawdf["mort_acc"] = rawdf.apply(lambda x: fill_mort_acc(x["total_acc"],x["mort_acc"]),axis=1)
-		st.write(rawdf.isnull().sum())
-	st.success('Preprocess Completed!!')
+	pprocessc = st.radio('Continue Pre-process Data',('No','Yes'))
+	if pprocessc == 'Yes':
+		with st.spinner('Preprocessing and Handling Nulls...'):
+			#Dropping unwanted Columns
+			rawdf = rawdf.drop("emp_title", axis=1)
+			rawdf = rawdf.drop("emp_length", axis=1)
+			rawdf = rawdf.drop("title", axis=1)
+			#Handling Null
+			total_acc_avg = rawdf.groupby("total_acc").mean()["mort_acc"]
+			def fill_mort_acc(total_acc,mort_acc):
+				if np.isnan(mort_acc):
+					return total_acc_avg[total_acc]
+				else:
+					return mort_acc
+			rawdf["mort_acc"] = rawdf.apply(lambda x: fill_mort_acc(x["total_acc"],x["mort_acc"]),axis=1)
+			st.write(rawdf.isnull().sum())
+		st.success('Preprocess Completed!!')
+	elif pprocessc == 'No':
+		st.markdown('**Preprocess Stopped...Select Yes to Continue**')
+		st.stop()
 				
 		
 		
