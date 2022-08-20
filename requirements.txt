@@ -7,5 +7,5 @@ datetime
 sklearn
 tensorflow
 keras
-fpdf
+imblearn
 plotly
