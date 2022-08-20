@@ -131,6 +131,23 @@ with eda:
              			data=file,
              			file_name="Loan Status vs SubGrade.png",
              			mime="image/png")
+	sugrade = st.radio('Do you want to Explore the Subgrades that doesn't get paid back a lot? ',('Yes','No'))
+	if sugrade == 'Yes':
+		st.markdown('_Exploring Grades that does not get paid back a lot_')
+		fig8 = plt.figure(figsize=(8,8))
+		f_g = rawdf[(rawdf["grade"]=="F") | (rawdf["grade"]=="G")]
+		subgrade_order = sorted(f_g["sub_grade"].unique())
+		snsg = sns.countplot(x="sub_grade", data=f_g, palette="coolwarm", order=subgrade_order, hue="loan_status")
+		plt.savefig('ouputh.png')
+		st.pyplot(fig8)
+		with open("ouputh.png", "rb") as file:
+     				btn = st.download_button(
+             			label="Download Plot",
+             			data=file,
+             			file_name="Grade F&G.png",
+             			mime="image/png")	   
+	elif sugrade == 'No':
+		st.markdown('_No Investigation Selected_')
 	#st.balloons()
 	#plt.boxplot(rawdf['loan_amnt'])
 	#st.pyplot(fig4)
