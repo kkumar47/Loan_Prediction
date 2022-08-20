@@ -78,7 +78,32 @@ with eda:
              		data=file,
              		file_name="Correlation Plot.png",
              		mime="image/png")
-	fig4 = plt.figure(figsize=(10,10))
-	st.balloons()
+	
+	col1, col2 = st.columns(2)
+	with col1:
+		st.markdown('**_Installment vs Loan Amount_**)
+		fig4 = plt.figure(figsize=(10,10))
+		snsd = sns.scatterplot(x="installment", y="loan_amnt", hue='loan_status', data=rawdf)
+		plt.savefig('ouputd.png')
+		st.pyplot(fig4)
+		with open("ouputd.png", "rb") as file:
+     				btn = st.download_button(
+             			label="Download Plot",
+             			data=file,
+             			file_name="Installment vs Loan Amount.png",
+             			mime="image/png")
+	with col2:
+		st.markdown('**Loan Status vs Loan Amount_**)
+		fig5 = plt.figure(figsize=(10,10))
+		snse = sns.boxplot(x="loan_status", y="loan_amnt",  data=rawdf)
+		plt.savefig('oupute.png')
+		st.pyplot(fig5)
+		with open("oupute.png", "rb") as file:
+     				btn = st.download_button(
+             			label="Download Plot",
+             			data=file,
+             			file_name="Box Plot.png",
+             			mime="image/png")
+	#st.balloons()
 	#plt.boxplot(rawdf['loan_amnt'])
 	#st.pyplot(fig4)
