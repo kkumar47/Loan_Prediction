@@ -12,6 +12,7 @@ from sklearn.model_selection import train_test_split
 header = st.container()
 rawdata = st.container()
 eda = st.container()
+pprocess = st.container()
 
 with header:
 	font="sans serif"
@@ -164,6 +165,14 @@ with eda:
              		data=file,
              		file_name="Encoded Correlation plot.png",
              		mime="image/png")
-	#st.balloons()
-	#plt.boxplot(rawdf['loan_amnt'])
-	#st.pyplot(fig4)
+
+			
+with process:
+	st.subheader("Pre-Process Data", anchor ='EDA')
+	col3, col4 = st.columns(2)
+	with col3:
+		st.markdown('_Data Information_')
+		st.write(rawdf.info())
+	with col4:
+		st.markdown('_Missing Value Count by Attribute_')
+		st.write(rawdf.isnull().sum())
