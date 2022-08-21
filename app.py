@@ -209,6 +209,16 @@ with pprocess:
 			dummies = pd.get_dummies(rawdf[['verification_status', 'application_type','initial_list_status','purpose']],drop_first=True)
 			rawdf = pd.concat([rawdf.drop(['verification_status', 'application_type','initial_list_status','purpose'], axis=1),dummies],axis=1)
 			rawdf["home_ownership"] = rawdf["home_ownership"].replace(["NONE","ANY"],"OTHER")
+			dummies = pd.get_dummies(rawdf["home_ownership"],drop_first=True)
+			rawdf = pd.concat([rawdf.drop("home_ownership", axis=1),dummies],axis=1)
+			
+			rawdf["zipcode"] = rawdf["address"].apply(lambda adress : adress[-5:])
+			dummies = pd.get_dummies(rawdf["zipcode"],drop_first=True)
+			rawdf = pd.concat([rawdf.drop("zipcode", axis=1),dummies],axis=1)
+			rawdf = rawdf.drop("address", axis=1)
+			rawdf = rawdf.drop("issue_d", axis=1)
+			
+			rawdf["earliest_cr_line"] = rawdf["earliest_cr_line"].apply(lambda date: int(date[-4:]))
 		#my_bar = st.progress(0)
 		#for percent_complete in range(100):
 			#rawdf["term"] = rawdf["term"].apply(lambda term: 36 if term=='36 months' else 60)
