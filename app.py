@@ -206,7 +206,7 @@ with pprocess:
 			rawdf["term"] = rawdf["term"].apply(lambda term: 36 if term=='36 months' else 60)
 			#st.dataframe(rawdf.head(10))
 			#rawdf = rawdf.drop("grade")
-			my_bar.progress(percent_complete + 100)
+			my_bar.progress(percent_complete + 99)
 			#dummies = pd.get_dummies(rawdf["sub_grade"],drop_first=True)
 			#rawdf = pd.concat([rawdf.drop("sub_grade", axis=1),dummies],axis=1)
 			#my_bar.progress(percent_complete + 10)
