@@ -204,7 +204,7 @@ with pprocess:
 		my_bar = st.progress(0)
 		for percent_complete in range(100):
 			rawdf["term"] = rawdf["term"].apply(lambda term: term[:3])
-			rawdf["term"] = rawdf["term"].apply(lambda term: int(term))
+			rawdf["term"] = rawdf["term"].apply(lambda term: term.astype(int))
 			rawdf = rawdf.drop("grade", axis=1)
 			my_bar.progress(percent_complete + 10)
 			dummies = pd.get_dummies(rawdf["sub_grade"],drop_first=True)
