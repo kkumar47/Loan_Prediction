@@ -221,7 +221,7 @@ with pprocess:
 			#rawdf["zipcode"] = rawdf["address"].apply(lambda adress : adress[-5:])
 			#dummies = pd.get_dummies(rawdf["zipcode"],drop_first=True)
 			#rawdf = pd.concat([rawdf.drop("zipcode", axis=1),dummies],axis=1)
-			$rawdf = rawdf.drop("address", axis=1)
+			#rawdf = rawdf.drop("address", axis=1)
 			#rawdf = rawdf.drop("issue_d", axis=1)
 			#my_bar.progress(percent_complete + 10)
 			#rawdf["earliest_cr_line"] = rawdf["earliest_cr_line"].apply(lambda date: int(date[-4:]))
