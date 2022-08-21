@@ -193,13 +193,42 @@ with pprocess:
 					return mort_acc
 			rawdf["mort_acc"] = rawdf.apply(lambda x: fill_mort_acc(x["total_acc"],x["mort_acc"]),axis=1)
 			rawdf = rawdf.dropna()
-		st.success('Preprocess Completed!!', icon="✅")
+		st.success('Null values Handled!!', icon="✅")
 		st.markdown('_Missing Value count post Handling Null_')
 		st.write(rawdf.isnull().sum())
 	elif pprocessc == 'No':
 		st.warning('Null Handling Stopped...Select Yes to Continue', icon="⚠️")
 		st.stop()
-				
-		
+	pprocessn = st.radio('Continue Preprocessing',('No','Yes'))
+	if pprocessn == 'Yes':
+		my_bar = st.progress(0)
+		for percent_complete in range(100):
+			rawdf["term"] = rawdf["term"].apply(lambda term: int(term[:3]))
+			rawdf = rawdf.drop("grade", axis=1)
+			my_bar.progress(percent_complete + 10)
+			dummies = pd.get_dummies(df["sub_grade"],drop_first=True)
+			rawdf = pd.concat([df.drop("sub_grade", axis=1),dummies],axis=1)
+			my_bar.progress(percent_complete + 10)
+			dummies = pd.get_dummies(rawdf[['verification_status', 'application_type','initial_list_status','purpose']],drop_first=True)
+			rawdf = pd.concat([rawdf.drop(['verification_status', 'application_type','initial_list_status','purpose'], axis=1),dummies],axis=1)
+			my_bar.progress(percent_complete + 30)
+			rawdf["home_ownership"] = rawdf["home_ownership"].replace(["NONE","ANY"],"OTHER")
+			my_bar.progress(percent_complete + 20)
+			dummies = pd.get_dummies(rawdf["home_ownership"],drop_first=True)
+			rawdf = pd.concat([rawdf.drop("home_ownership", axis=1),dummies],axis=1)
+			my_bar.progress(percent_complete + 10)
+			rawdf["zipcode"] = rawdf["address"].apply(lambda adress : adress[-5:])
+			dummies = pd.get_dummies(rawdf["zipcode"],drop_first=True)
+			rawdf = pd.concat([rawdf.drop("zipcode", axis=1),dummies],axis=1)
+			rawdf = rawdf.drop("address", axis=1)
+			rawdf = rawdf.drop("issue_d", axis=1)
+			my_bar.progress(percent_complete + 10)
+			rawdf["earliest_cr_line"] = rawdf["earliest_cr_line"].apply(lambda date: int(date[-4:]))
+			my_bar.progress(percent_complete + 10)
+		st.success('Preprocess Successfull!!', icon="✅")
+		st.dataframe(rawdf.head(10))
+	elif pprocessn == 'No':
+		st.warning('Preprocessing Stopped...Select Yes to Continue', icon="⚠️")
+		st.stop()
 		
 		
