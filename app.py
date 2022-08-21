@@ -203,6 +203,7 @@ with pprocess:
 	if pprocessn == 'Yes':
 		with st.spinner('Preprocessing Data...'):
 			rawdf["term"] = rawdf["term"].apply(lambda term: 36 if term=='36 months' else 60)
+			rawdf = rawdf.drop("grade", axis=1)
 			st.dataframe(rawdf.head(10))
 		#my_bar = st.progress(0)
 		#for percent_complete in range(100):
