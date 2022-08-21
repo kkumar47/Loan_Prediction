@@ -204,7 +204,11 @@ with pprocess:
 		with st.spinner('Preprocessing Data...'):
 			rawdf["term"] = rawdf["term"].apply(lambda term: 36 if term=='36 months' else 60)
 			rawdf = rawdf.drop("grade", axis=1)
-			st.dataframe(rawdf.head(10))
+			dummies = pd.get_dummies(rawdf["sub_grade"],drop_first=True)
+			rawdf = pd.concat([rawdf.drop("sub_grade", axis=1),dummies],axis=1)
+			dummies = pd.get_dummies(rawdf[['verification_status', 'application_type','initial_list_status','purpose']],drop_first=True)
+			rawdf = pd.concat([rawdf.drop(['verification_status', 'application_type','initial_list_status','purpose'], axis=1),dummies],axis=1)
+			rawdf["home_ownership"] = rawdf["home_ownership"].replace(["NONE","ANY"],"OTHER")
 		#my_bar = st.progress(0)
 		#for percent_complete in range(100):
 			#rawdf["term"] = rawdf["term"].apply(lambda term: 36 if term=='36 months' else 60)
