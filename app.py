@@ -179,7 +179,7 @@ with pprocess:
 		st.write(100* rawdf.isnull().sum()/len(rawdf))
 	pprocessc = st.radio('Continue Handling Null',('No','Yes'))
 	if pprocessc == 'Yes':
-		with st.spinner('Preprocessing and Handling Nulls...'):
+		with st.spinner('Handling Nulls...'):
 			#Dropping unwanted Columns
 			rawdf = rawdf.drop("emp_title", axis=1)
 			rawdf = rawdf.drop("emp_length", axis=1)
@@ -201,12 +201,15 @@ with pprocess:
 		st.stop()
 	pprocessn = st.radio('Continue Preprocessing',('No','Yes'))
 	if pprocessn == 'Yes':
-		my_bar = st.progress(0)
-		for percent_complete in range(100):
+		with st.spinner('Preprocessing Data...'):
 			rawdf["term"] = rawdf["term"].apply(lambda term: 36 if term=='36 months' else 60)
+			st.dataframe(rawdf.head(10))
+		#my_bar = st.progress(0)
+		#for percent_complete in range(100):
+			#rawdf["term"] = rawdf["term"].apply(lambda term: 36 if term=='36 months' else 60)
 			#st.dataframe(rawdf.head(10))
 			#rawdf = rawdf.drop("grade")
-			my_bar.progress(percent_complete + 99)
+			#my_bar.progress(percent_complete + 99)
 			#dummies = pd.get_dummies(rawdf["sub_grade"],drop_first=True)
 			#rawdf = pd.concat([rawdf.drop("sub_grade", axis=1),dummies],axis=1)
 			#my_bar.progress(percent_complete + 10)
