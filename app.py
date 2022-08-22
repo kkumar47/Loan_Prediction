@@ -289,15 +289,7 @@ with pprocess:
 		st.warning('Preprocessing Stopped...Select Yes to Continue', icon="⚠️")
 		st.stop()
 
-with smotet:
-	st.subheader('Minority Over-sampling process')
-	smote = SMOTE(random_state = 101)
-	X, y = 	smote.fit_resample(rawdf.drop("loan_repaid", axis=1).values, rawdf["loan_repaid"].values)
-	y_smote = pd.DataFrame(y, columns=['loan_repaid'])
-	fig12 = plt.figure(figsize=(8,8))
-	snsl = sns.countplot(y_smote['loan_repaid'])
-	plt.savefig('ouputl.png')
-	st.pyplot(fig12)
+
 	
 with ttsplit:
 	st.subheader('Train-Test Split')
@@ -311,3 +303,9 @@ with ttsplit:
 	col7.write(X_train.shape)
 	col8.write('Shape of Training Label post split')	
 	col8.write(y_train.shape)
+	st.markdown('_Applying minority oversampling on Training data_')
+	oversample = SMOTE(random_state = 101)
+	X_train_ad, y_train_ad = oversample.fit_resample(X_train, y_train)
+	st.write(type(y_train_ad))
+	
+	
