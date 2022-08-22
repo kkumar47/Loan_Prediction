@@ -14,6 +14,7 @@ header = st.container()
 rawdata = st.container()
 eda = st.container()
 pprocess = st.container()
+ttsplit = st.container()
 
 with header:
 	font="sans serif"
@@ -286,4 +287,15 @@ with pprocess:
 		st.warning('Preprocessing Stopped...Select Yes to Continue', icon="⚠️")
 		st.stop()
 		
-		
+with ttsplit:
+	st.subheader('Train-Test Split')
+	X = rawdf.drop("loan_repaid", axis=1).values
+	y = rawdf["loan_repaid"].values
+	col7, col8 = st.columns(2)
+	test = col7.slider('Select testing data ', min_value=0.1, max_value=0.3, value=0.1, step=0.05, help='Select the test data percentage by sliding the slider ')
+	train= col8.metric(label ='Train data: ', value=1-test)	
+	X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=test, random_state=42)
+	col7.write('Shape of Training data post data split')
+	col7.write(X_train.shape)
+	col8.write('Shape of Training Label post split')	
+	col8.write(y_train.shape)
