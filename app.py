@@ -187,6 +187,7 @@ with eda:
 	le = preprocessing.LabelEncoder()
 	le.fit(rawdf['loan_status'])
 	rawdf['loan_repaid']=le.transform(rawdf['loan_status'])
+	rawdf = rawdf.drop("loan_status", axis=1)
 	st.markdown('**_Correlation Plot with Encoded Loan Status-Loan Repaid_**')
 	fig9 = plt.figure(figsize=(8,8))
 	snsi = rawdf.corr()["loan_repaid"].sort_values().drop("loan_repaid").plot(kind="bar")
