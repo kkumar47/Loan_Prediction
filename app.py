@@ -108,7 +108,7 @@ with eda:
              			file_name="Box Plot.png",
              			mime="image/png")
 	
-	ggrade = st.radio('Select Model Optimizer',('Grade','Subgrade'))
+	ggrade = st.radio('Select Grade Level',('Grade','Subgrade'))
 	if ggrade == 'Grade':
 		st.markdown('**_Loan Status vs Grade_**')
 		fig6 = plt.figure(figsize=(8,8))
@@ -152,6 +152,38 @@ with eda:
 	elif sugrade == 'No':
 		st.markdown('_No Investigation Selected_')
 	
+	suempl = st.radio('Do you want to check Employment length impact on loan repayment? ',('Yes','No'))
+	if suempl = 'No':
+		st.markdown('_Continuing without investigation_')
+	elif suempl = 'Yes':
+		col5, col6 = st.columns(2)
+		with col5:
+			st.markdown('**_Employment Length_**')
+			fig10 = plt.figure(figsize=(8,8))
+			emp_length_order = sorted(df["emp_length"].dropna().unique())
+			snsj = sns.countplot(x="emp_length",data=rawdf,order=emp_length_order)
+			plt.savefig('ouputj.png')
+			st.pyplot(fig10)
+			with open("ouputj.png", "rb") as file:
+     					btn = st.download_button(
+             				label="Download Plot",
+             				data=file,
+             				file_name="Employment Length plot.png",
+             				mime="image/png")
+		with col6:
+			st.markdown('**_Employment Length vs Loan Status_**')
+			fig11 = plt.figure(figsize=(8,8))
+			emp_length_order = sorted(df["emp_length"].dropna().unique())
+			snsk = sns.countplot(x="emp_length",data=rawdf,order=emp_length_order, hue="loan_status")
+			plt.savefig('ouputk.png')
+			st.pyplot(fig11)
+			with open("ouputk.png", "rb") as file:
+     					btn = st.download_button(
+             				label="Download Plot",
+             				data=file,
+             				file_name="Employment Length vs Loan status plot.png",
+             				mime="image/png")
+				
 	le = preprocessing.LabelEncoder()
 	le.fit(rawdf['loan_status'])
 	rawdf['loan_repaid']=le.transform(rawdf['loan_status'])
