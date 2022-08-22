@@ -153,9 +153,9 @@ with eda:
 		st.markdown('_No Investigation Selected_')
 	
 	suempl = st.radio('Do you want to check Employment length impact on loan repayment? ',('Yes','No'))
-	if suempl = 'No':
+	if suempl == 'No':
 		st.markdown('_Continuing without investigation_')
-	elif suempl = 'Yes':
+	elif suempl == 'Yes':
 		col5, col6 = st.columns(2)
 		with col5:
 			st.markdown('**_Employment Length_**')
