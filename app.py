@@ -160,7 +160,7 @@ with eda:
 		with col5:
 			st.markdown('**_Employment Length_**')
 			fig10 = plt.figure(figsize=(8,8))
-			emp_length_order = sorted(df["emp_length"].dropna().unique())
+			emp_length_order = sorted(rawdf["emp_length"].dropna().unique())
 			snsj = sns.countplot(x="emp_length",data=rawdf,order=emp_length_order)
 			plt.savefig('ouputj.png')
 			st.pyplot(fig10)
@@ -173,7 +173,7 @@ with eda:
 		with col6:
 			st.markdown('**_Employment Length vs Loan Status_**')
 			fig11 = plt.figure(figsize=(8,8))
-			emp_length_order = sorted(df["emp_length"].dropna().unique())
+			emp_length_order = sorted(rawdf["emp_length"].dropna().unique())
 			snsk = sns.countplot(x="emp_length",data=rawdf,order=emp_length_order, hue="loan_status")
 			plt.savefig('ouputk.png')
 			st.pyplot(fig11)
