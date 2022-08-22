@@ -7,6 +7,7 @@ import plotly.express as px
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 import time
+from imblearn.over_sampling import SMOTE
 
 
 
@@ -15,6 +16,7 @@ rawdata = st.container()
 eda = st.container()
 pprocess = st.container()
 ttsplit = st.container()
+smotet = st.container()
 
 with header:
 	font="sans serif"
@@ -188,7 +190,7 @@ with eda:
 	le = preprocessing.LabelEncoder()
 	le.fit(rawdf['loan_status'])
 	rawdf['loan_repaid']=le.transform(rawdf['loan_status'])
-	st.text('Loan Status encoded')
+	st.write('Loan Status encoded')
 	df = rawdf.drop_duplicates(['loan_repaid','loan_status'])[['loan_repaid','loan_status']]
 	st.dataframe(df)
 	rawdf = rawdf.drop("loan_status", axis=1)
@@ -286,7 +288,17 @@ with pprocess:
 	elif pprocessn == 'No':
 		st.warning('Preprocessing Stopped...Select Yes to Continue', icon="⚠️")
 		st.stop()
-		
+
+with smotet:
+	st.subheader('Minority Over-sampling process')
+	smote = SMOTE(random_state = 101)
+	X, y = 	smote.fit_resample(rawdf.drop("loan_repaid", axis=1).values, rawdf["loan_repaid"].values)
+	y_smote = pd.DataFrame(y, columns=['loan_repaid'])
+	fig12 = plt.figure(figsize=(8,8))
+	snsl = sns.countplot(y_smote['loan_repaid'])
+	plt.savefig('ouputl.png')
+	st.pyplot(fig12)
+	
 with ttsplit:
 	st.subheader('Train-Test Split')
 	X = rawdf.drop("loan_repaid", axis=1).values
