@@ -308,13 +308,14 @@ with ttsplit:
 		oversample = SMOTE(random_state = 101)
 		X_train_ad, y_train_ad = oversample.fit_resample(X_train, y_train)
 	st.success('SMOTE Successfull!!', icon="✅")
-	col7.write('Shape of Training data post SMOTE')
-	col7.write((X_train_ad.shape))
-	col8.write('Shape of Training label post SMOTE')
-	col8.write((y_train_ad.shape))
+	col9,col10 = st.columns(2)
+	col9.write('Shape of Training data post SMOTE')
+	col9.write((X_train_ad.shape))
+	col10.write('Shape of Training label post SMOTE')
+	col10.write((y_train_ad.shape))
 	unique, counts = np.unique(y_train_ad, return_counts=True)
 	result = np.column_stack((unique, counts)) 
-	st.write(result)
+	st.write(type(result))
 		
 
 	
