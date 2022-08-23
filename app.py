@@ -346,9 +346,10 @@ with modelt:
 	st.success('Model Training Completed', icon="✅")
 	losses = pd.DataFrame(model.history.history)
 	fig12 = plt.figure(figsize=(8,8))
-	snsl = sns.lineplot(losses)
-	snsl.set_xlabel("Epoch", fontsize = 20)
-	snsl.set_ylabel("Losses", fontsize = 20)
+	plt.plot(losses['loss'])
+	plt.plot(losses['val_loss'])
+	plt.xlabel("Epoch", fontsize = 20)
+	plt.ylabel("Losses", fontsize = 20)
 	plt.savefig('ouputl.png')
 	st.pyplot(fig12)
 	with open("ouputl.png", "rb") as file:
