@@ -29,7 +29,7 @@ with header:
 	st.title('Loan Default Prediction System')
   
 def raw_data():
-	return pd.read_csv('https://raw.githubusercontent.com/kkumar47/Loan_Prediction/master/lending_club_loan_two.csv')
+	return pd.read_csv('https://raw.githubusercontent.com/kkumar47/Loan_Prediction/master/lending_club_loan_two.csv', nrows=200000)
 
 rawdf = raw_data()
 
