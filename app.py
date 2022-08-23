@@ -306,6 +306,11 @@ with ttsplit:
 	st.markdown('_Applying minority oversampling on Training data_')
 	oversample = SMOTE(random_state = 101)
 	X_train_ad, y_train_ad = oversample.fit_resample(X_train, y_train)
-	st.write(type(y_train_ad))
+	st.write((y_train_ad.shape))
+	fig12 = plt.figure(figsize=(8,8))
+	
+	snsl = sns.countplot(y_train_ad)
+	plt.savefig('ouputk.png')
+	st.pyplot(fig12)
 	
 	
