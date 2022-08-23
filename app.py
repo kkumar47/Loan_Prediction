@@ -326,9 +326,10 @@ with modelt:
 	scaler = MinMaxScaler()
 	X_train = scaler.fit_transform(X_train)
 	X_test = scaler.transform(X_test)
-	model = Sequential()
+	
 
-	with st.spinner('Training Model...'):
+	with st.spinner('Training CNN Model...'):
+		model = Sequential()
 		model.add(Dense(78, activation="relu"))
 		model.add(Dropout(0.2)) #preventing overfitting
 
