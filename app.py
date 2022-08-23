@@ -308,23 +308,23 @@ with ttsplit:
 	col7.write(X_train.shape)
 	col8.write('Shape of Training Label post split')	
 	col8.write(y_train.shape)
-	st.markdown('_Applying minority oversampling on Training data_')
-	with st.spinner('Applying Minority Oversampling with SMOTE...'):
-		oversample = SMOTE(random_state = 101)
-		X_train_ad, y_train_ad = oversample.fit_resample(X_train, y_train)
-	st.success('SMOTE Successfull!!', icon="✅")
-	col9,col10 = st.columns(2)
-	col9.write('Shape of Training data post SMOTE')
-	col9.write((X_train_ad.shape))
-	col10.write('Shape of Training label post SMOTE')
-	col10.write((y_train_ad.shape))
-	unique, counts = np.unique(y_train_ad, return_counts=True)
-	result = np.column_stack((unique, counts)) 
-	st.write((result))
+	#st.markdown('_Applying minority oversampling on Training data_')
+	#with st.spinner('Applying Minority Oversampling with SMOTE...'):
+		#oversample = SMOTE(random_state = 101)
+		#X_train_ad, y_train_ad = oversample.fit_resample(X_train, y_train)
+	#st.success('SMOTE Successfull!!', icon="✅")
+	#col9,col10 = st.columns(2)
+	#col9.write('Shape of Training data post SMOTE')
+	#col9.write((X_train_ad.shape))
+	#col10.write('Shape of Training label post SMOTE')
+	#col10.write((y_train_ad.shape))
+	#unique, counts = np.unique(y_train_ad, return_counts=True)
+	#result = np.column_stack((unique, counts)) 
+	#st.write((result))
 		
 with modelt:
 	scaler = MinMaxScaler()
-	X_train_ad = scaler.fit_transform(X_train_ad)
+	X_train = scaler.fit_transform(X_train)
 	X_test = scaler.transform(X_test)
 	model = Sequential()
 
@@ -340,7 +340,18 @@ with modelt:
 	model.add(Dense(units=1, activation="sigmoid")) #because it's a binary classification
 
 	model.compile(loss="binary_crossentropy", optimizer="adam")
-	model.fit(x = X_train_ad, y = y_train_ad, epochs = 25, batch_size = 256, validation_data=(X_test, y_test))
+	model.fit(x = X_train, y = y_train, epochs = 25, batch_size = 256, validation_data=(X_test, y_test))
+	losses = pd.DataFrame(model.history.history)
+	fig12 = plt.figure(figsize=(8,8))
+	snsl = losses.plot()
+	plt.savefig('ouputl.png')
+	st.pyplot(fig12)
+	with open("ouputl.png", "rb") as file:
+     			btn = st.download_button(
+             		label="Download Plot",
+             		data=file,
+             		file_name="Encoded Model losses.png",
+             		mime="image/png")
 
 	
 	
