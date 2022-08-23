@@ -333,8 +333,8 @@ with modelt:
              		mime="image/png")
 	losses_l = losses[['loss','val_loss']]
 	losses_a = losses[['accuracy','val_accuracy']]
-	st.line_chart(losses_l)
-	st.line_chart(losses_a)
+	st.line_chart(losses_l, x='Epoch #', y='loss')
+	st.line_chart(losses_a,  x='Epoch #', y='Accuracy',width=10, height=10)
 
 	
 	
