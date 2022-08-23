@@ -8,7 +8,10 @@ from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 import time
 from imblearn.over_sampling import SMOTE
-
+from sklearn.preprocessing import MinMaxScaler
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense,Dropout
 
 
 header = st.container()
@@ -17,6 +20,8 @@ eda = st.container()
 pprocess = st.container()
 ttsplit = st.container()
 smotet = st.container()
+modelt = st.container()
+modele = st.container()
 
 with header:
 	font="sans serif"
@@ -317,6 +322,25 @@ with ttsplit:
 	result = np.column_stack((unique, counts)) 
 	st.write((result))
 		
+with modelt:
+	scaler = MinMaxScaler()
+	X_train_ad = scaler.fit_transform(X_train_ad)
+	X_test = scaler.transform(X_test)
+	model = Sequential()
+
+	model.add(Dense(78, activation="relu"))
+	model.add(Dropout(0.2)) #preventing overfitting
+
+	model.add(Dense(39, activation="relu")) #reducing number of neurons of a half
+	model.add(Dropout(0.2))
+
+	model.add(Dense(19, activation="relu"))
+	model.add(Dropout(0.2))
+
+	model.add(Dense(units=1, activation="sigmoid")) #because it's a binary classification
+
+	model.compile(loss="binary_crossentropy", optimizer="adam")
+	model.fit(x = X_train_ad, y = y_train_ad, epochs = 25, batch_size = 256, validation_data=(X_test, y_test))
 
 	
 	
