@@ -316,25 +316,28 @@ with modelt:
 	st.success('Model Training Completed', icon="✅")
 	losses = pd.DataFrame(model.history.history)
 	st.dataframe(losses)
-	fig12 = plt.figure(figsize=(8,8))
-	plt.plot(losses['loss'], label='loss')
-	plt.plot(losses['val_loss'], label='val_loss')
+	col9, col10 = st.columns(2)
+	with col9:
+		fig12 = plt.figure(figsize=(8,8))
+		plt.plot(losses['accuracy'], label='accuracy')
+		plt.plot(losses['val_accuracy'], label='val_accuracy')
 	
-	plt.xlabel("Epoch #", fontsize = 20)
-	plt.ylabel("Losses", fontsize = 20)
-	plt.legend()
-	plt.savefig('ouputl.png')
-	st.pyplot(fig12)
-	with open("ouputl.png", "rb") as file:
-     			btn = st.download_button(
-             		label="Download Plot",
-             		data=file,
-             		file_name="Encoded Model losses.png",
-             		mime="image/png")
-	losses_l = losses[['loss','val_loss']]
-	losses_a = losses[['accuracy','val_accuracy']]
-	st.line_chart(losses_l)
-	st.line_chart(losses_a,width=10, height=10)
+		plt.xlabel("Epoch #", fontsize = 20)
+		plt.ylabel("Losses", fontsize = 20)
+		plt.legend()
+		plt.savefig('ouputl.png')
+		st.pyplot(fig12)
+		with open("ouputl.png", "rb") as file:
+     				btn = st.download_button(
+             			label="Download Plot",
+             			data=file,
+             			file_name="Encoded Model losses.png",
+             			mime="image/png")
+	with col10:
+		losses_l = losses[['loss','val_loss']]
+		
+		st.line_chart(losses_l)
+		
 
 	
 	
