@@ -315,7 +315,7 @@ with ttsplit:
 	col10.write((y_train_ad.shape))
 	unique, counts = np.unique(y_train_ad, return_counts=True)
 	result = np.column_stack((unique, counts)) 
-	st.write(type(result))
+	st.write((result))
 		
 
 	
