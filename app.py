@@ -347,7 +347,7 @@ with modele:
 	st.write(classification_report(y_test, predictions))
 	st.markdown('**_Confusion Matrix_**')
 	result =confusion_matrix(y_test,predictions)
-	fig13,ax = plt.figure(figsize=(8,8))
+	fig13,ax = plt.subplots(figsize=(8,8))
 	snsj = sns.heatmap(result, annot=True, ax=ax)
 	ax.set_xlabel('Predicted Class')
 	ax.set_ylabel('Actual Class')
