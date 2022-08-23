@@ -304,13 +304,18 @@ with ttsplit:
 	col8.write('Shape of Training Label post split')	
 	col8.write(y_train.shape)
 	st.markdown('_Applying minority oversampling on Training data_')
-	oversample = SMOTE(random_state = 101)
-	X_train_ad, y_train_ad = oversample.fit_resample(X_train, y_train)
-	st.write((y_train_ad.shape))
-	fig12 = plt.figure(figsize=(8,8))
-	ytrain = pd.DataFrame(y_train_ad, columns=['loan_repaid'])
-	snsl = sns.countplot(ytrain['loan_repaid'])
-	plt.savefig('ouputk.png')
-	st.pyplot(fig12)
+	with st.spinner('Applying Minority Oversampling with SMOTE...'):
+		oversample = SMOTE(random_state = 101)
+		X_train_ad, y_train_ad = oversample.fit_resample(X_train, y_train)
+	st.success('SMOTE Successfull!!', icon="✅")
+	col7.write('Shape of Training data post SMOTE')
+	col7.write((X_train_ad.shape))
+	col8.write('Shape of Training label post SMOTE')
+	col8.write((y_train_ad.shape))
+	unique, counts = np.unique(y_train_ad, return_counts=True)
+	result = np.column_stack((unique, counts)) 
+	st.write(result)
+		
+
 	
 	
