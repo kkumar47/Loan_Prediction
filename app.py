@@ -331,7 +331,10 @@ with modelt:
              		data=file,
              		file_name="Encoded Model losses.png",
              		mime="image/png")
-	st.line_chart(losses)
+	losses_l = losses[['loss','val_loss']]
+	losses_a = losses[['accuracy','val_accuracy']]
+	st.line_chart(losses_l)
+	st.line_chart(losses_a)
 
 	
 	
