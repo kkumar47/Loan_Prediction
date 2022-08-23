@@ -311,10 +311,11 @@ with modelt:
 
 		model.add(Dense(units=1, activation="sigmoid")) #because it's a binary classification
 
-		model.compile(loss="binary_crossentropy", optimizer="adam")
+		model.compile(loss="binary_crossentropy", optimizer="adam", metrics=['accuracy'])
 		model.fit(x = X_train, y = y_train, epochs = 25, batch_size = 256, validation_data=(X_test, y_test))
 	st.success('Model Training Completed', icon="✅")
 	losses = pd.DataFrame(model.history.history)
+	st.dataframe(losses)
 	fig12 = plt.figure(figsize=(8,8))
 	plt.plot(losses['loss'], label='loss')
 	plt.plot(losses['val_loss'], label='val_loss')
