@@ -328,22 +328,24 @@ with modelt:
 	X_test = scaler.transform(X_test)
 	model = Sequential()
 
-	model.add(Dense(78, activation="relu"))
-	model.add(Dropout(0.2)) #preventing overfitting
+	with st.spinner('Training Model...'):
+		model.add(Dense(78, activation="relu"))
+		model.add(Dropout(0.2)) #preventing overfitting
 
-	model.add(Dense(39, activation="relu")) #reducing number of neurons of a half
-	model.add(Dropout(0.2))
+		model.add(Dense(39, activation="relu")) #reducing number of neurons of a half
+		model.add(Dropout(0.2))
 
-	model.add(Dense(19, activation="relu"))
-	model.add(Dropout(0.2))
+		model.add(Dense(19, activation="relu"))
+		model.add(Dropout(0.2))
 
-	model.add(Dense(units=1, activation="sigmoid")) #because it's a binary classification
+		model.add(Dense(units=1, activation="sigmoid")) #because it's a binary classification
 
-	model.compile(loss="binary_crossentropy", optimizer="adam")
-	model.fit(x = X_train, y = y_train, epochs = 25, batch_size = 256, validation_data=(X_test, y_test))
+		model.compile(loss="binary_crossentropy", optimizer="adam")
+		model.fit(x = X_train, y = y_train, epochs = 25, batch_size = 256, validation_data=(X_test, y_test))
+	st.success('Model Training Completed', icon="✅")
 	losses = pd.DataFrame(model.history.history)
 	fig12 = plt.figure(figsize=(8,8))
-	snsl = losses.plot()
+	snsl = plt.plot(losses)
 	plt.savefig('ouputl.png')
 	st.pyplot(fig12)
 	with open("ouputl.png", "rb") as file:
