@@ -133,7 +133,7 @@ with eda:
 	elif ggrade == 'Subgrade':
 		st.markdown('**_Loan Status vs SubGrade_**')
 		subgrade_order = sorted(rawdf["sub_grade"].unique())
-		fig7 = plt.figure(figsize=(8,15))
+		fig7 = plt.figure(figsize=(15,8))
 		snsg = sns.countplot(x="sub_grade", data=rawdf, palette="coolwarm", order=subgrade_order, hue="loan_status")
 		plt.savefig('ouputg.png')
 		st.pyplot(fig7)
@@ -343,6 +343,21 @@ with modelt:
 with modele:
 	st.subheader('CNN Model Evaluation')
 	predictions = (model.predict(X_test) > 0.5).astype("int32")
+	st.markdown('**_Classification Report_**')
 	st.write(classification_report(y_test, predictions))
-	
+	st.markdown('**_Confusion Matrix_**')
+	result =confusion_matrix(y_test,predictions)
+	fig13 = plt.figure(figsize=(8,8))
+	snsj = sns.heatmap(result, annot=True, ax=ax)
+	ax.set_xlabel('Predicted Class')
+	ax.set_ylabel('Actual Class')
+	ax.set_title('Confusion Matrix')
+	plt.savefig("ouputj.png")
+	st.pyplot(fig13)
+	with open("ouputj.png", "rb") as file:
+     				btn = st.download_button(
+             			label="Download Plot",
+             			data=file,
+             			file_name="Confusion Matrix.png",
+             			mime="image/png")
 	
