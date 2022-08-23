@@ -308,8 +308,8 @@ with ttsplit:
 	X_train_ad, y_train_ad = oversample.fit_resample(X_train, y_train)
 	st.write((y_train_ad.shape))
 	fig12 = plt.figure(figsize=(8,8))
-	ytrain = pd.DataFrame(y_train_ad)
-	snsl = sns.countplot(ytrain)
+	ytrain = pd.DataFrame(y_train_ad, columns=['loan_repaid'])
+	snsl = sns.countplot(ytrain[''loan_repaid''])
 	plt.savefig('ouputk.png')
 	st.pyplot(fig12)
 	
