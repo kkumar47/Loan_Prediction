@@ -319,7 +319,7 @@ with modelt:
 	fig12 = plt.figure(figsize=(8,8))
 	plt.plot(losses['loss'], label='loss')
 	plt.plot(losses['val_loss'], label='val_loss')
-	#plt.plot(model.history["acc"], label='Accuracy')
+	
 	plt.xlabel("Epoch #", fontsize = 20)
 	plt.ylabel("Losses", fontsize = 20)
 	plt.legend()
@@ -331,6 +331,7 @@ with modelt:
              		data=file,
              		file_name="Encoded Model losses.png",
              		mime="image/png")
+	st.line_chart(losses)
 
 	
 	
