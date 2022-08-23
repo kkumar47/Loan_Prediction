@@ -12,6 +12,7 @@ from sklearn.preprocessing import MinMaxScaler
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense,Dropout
+from sklearn.metrics import classification_report, confusion_matrix
 
 
 header = st.container()
@@ -132,7 +133,7 @@ with eda:
 	elif ggrade == 'Subgrade':
 		st.markdown('**_Loan Status vs SubGrade_**')
 		subgrade_order = sorted(rawdf["sub_grade"].unique())
-		fig7 = plt.figure(figsize=(8,8))
+		fig7 = plt.figure(figsize=(8,15))
 		snsg = sns.countplot(x="sub_grade", data=rawdf, palette="coolwarm", order=subgrade_order, hue="loan_status")
 		plt.savefig('ouputg.png')
 		st.pyplot(fig7)
@@ -293,6 +294,7 @@ with ttsplit:
 	#st.write((result))
 		
 with modelt:
+	st.subheader('CNN Model Training')
 	scaler = MinMaxScaler()
 	X_train = scaler.fit_transform(X_train)
 	X_test = scaler.transform(X_test)
@@ -331,13 +333,16 @@ with modelt:
      				btn = st.download_button(
              			label="Download Plot",
              			data=file,
-             			file_name="Encoded Model losses.png",
+             			file_name="Model Accuracy.png",
              			mime="image/png")
 	with col10:
 		losses_l = losses[['loss','val_loss']]
 		
 		st.line_chart(losses_l)
 		
-
+with modele:
+	st.subheader('CNN Model Evaluation')
+	predictions = (model.predict(X_test) > 0.5).astype("int32")
+	st.write(classification_report(y_test, predictions))
 	
 	
