@@ -221,78 +221,48 @@ with pprocess:
 	with col4:
 		st.markdown('_Missing Value Count by Attribute in percentage_')
 		st.write(100* rawdf.isnull().sum()/len(rawdf))
-	pprocessc = st.radio('Continue Handling Null',('No','Yes'))
-	if pprocessc == 'Yes':
-		with st.spinner('Handling Nulls...'):
-			#Dropping unwanted Columns
-			rawdf = rawdf.drop("emp_title", axis=1)
-			rawdf = rawdf.drop("emp_length", axis=1)
-			rawdf = rawdf.drop("title", axis=1)
+
+	with st.spinner('Handling Nulls...'):
+		#Dropping unwanted Columns
+		rawdf = rawdf.drop("emp_title", axis=1)
+		rawdf = rawdf.drop("emp_length", axis=1)
+		rawdf = rawdf.drop("title", axis=1)
 			#Handling Null
-			total_acc_avg = rawdf.groupby("total_acc").mean()["mort_acc"]
-			def fill_mort_acc(total_acc,mort_acc):
-				if np.isnan(mort_acc):
-					return total_acc_avg[total_acc]
-				else:
-					return mort_acc
-			rawdf["mort_acc"] = rawdf.apply(lambda x: fill_mort_acc(x["total_acc"],x["mort_acc"]),axis=1)
-			rawdf = rawdf.dropna()
-		st.success('Null values Handled!!', icon="✅")
-		st.markdown('_Missing Value count post Handling Null_')
-		st.write(rawdf.isnull().sum())
-	elif pprocessc == 'No':
-		st.warning('Null Handling Stopped...Select Yes to Continue', icon="⚠️")
-		st.stop()
-	pprocessn = st.radio('Continue Preprocessing',('No','Yes'))
-	if pprocessn == 'Yes':
-		with st.spinner('Preprocessing Data...'):
-			rawdf["term"] = rawdf["term"].apply(lambda term: 36 if term=='36 months' else 60)
-			rawdf = rawdf.drop("grade", axis=1)
-			dummies = pd.get_dummies(rawdf["sub_grade"],drop_first=True)
-			rawdf = pd.concat([rawdf.drop("sub_grade", axis=1),dummies],axis=1)
-			dummies = pd.get_dummies(rawdf[['verification_status', 'application_type','initial_list_status','purpose']],drop_first=True)
-			rawdf = pd.concat([rawdf.drop(['verification_status', 'application_type','initial_list_status','purpose'], axis=1),dummies],axis=1)
-			rawdf["home_ownership"] = rawdf["home_ownership"].replace(["NONE","ANY"],"OTHER")
-			dummies = pd.get_dummies(rawdf["home_ownership"],drop_first=True)
-			rawdf = pd.concat([rawdf.drop("home_ownership", axis=1),dummies],axis=1)
+		total_acc_avg = rawdf.groupby("total_acc").mean()["mort_acc"]
+		def fill_mort_acc(total_acc,mort_acc):
+			if np.isnan(mort_acc):
+				return total_acc_avg[total_acc]
+			else:
+				return mort_acc
+		rawdf["mort_acc"] = rawdf.apply(lambda x: fill_mort_acc(x["total_acc"],x["mort_acc"]),axis=1)
+		rawdf = rawdf.dropna()
+	st.success('Null values Handled!!', icon="✅")
+	st.markdown('_Missing Value count post Handling Null_')
+	st.write(rawdf.isnull().sum())
+
+
+	with st.spinner('Preprocessing Data...'):
+		rawdf["term"] = rawdf["term"].apply(lambda term: 36 if term=='36 months' else 60)
+		rawdf = rawdf.drop("grade", axis=1)
+		dummies = pd.get_dummies(rawdf["sub_grade"],drop_first=True)
+		rawdf = pd.concat([rawdf.drop("sub_grade", axis=1),dummies],axis=1)
+		dummies = pd.get_dummies(rawdf[['verification_status', 'application_type','initial_list_status','purpose']],drop_first=True)
+		rawdf = pd.concat([rawdf.drop(['verification_status', 'application_type','initial_list_status','purpose'], axis=1),dummies],axis=1)
+		rawdf["home_ownership"] = rawdf["home_ownership"].replace(["NONE","ANY"],"OTHER")
+		dummies = pd.get_dummies(rawdf["home_ownership"],drop_first=True)
+		rawdf = pd.concat([rawdf.drop("home_ownership", axis=1),dummies],axis=1)
 			
-			rawdf["zipcode"] = rawdf["address"].apply(lambda adress : adress[-5:])
-			dummies = pd.get_dummies(rawdf["zipcode"],drop_first=True)
-			rawdf = pd.concat([rawdf.drop("zipcode", axis=1),dummies],axis=1)
-			rawdf = rawdf.drop("address", axis=1)
-			rawdf = rawdf.drop("issue_d", axis=1)
+		rawdf["zipcode"] = rawdf["address"].apply(lambda adress : adress[-5:])
+		dummies = pd.get_dummies(rawdf["zipcode"],drop_first=True)
+		rawdf = pd.concat([rawdf.drop("zipcode", axis=1),dummies],axis=1)
+		rawdf = rawdf.drop("address", axis=1)
+		rawdf = rawdf.drop("issue_d", axis=1)
 			
-			rawdf["earliest_cr_line"] = rawdf["earliest_cr_line"].apply(lambda date: int(date[-4:]))
-		#my_bar = st.progress(0)
-		#for percent_complete in range(100):
-			#rawdf["term"] = rawdf["term"].apply(lambda term: 36 if term=='36 months' else 60)
-			#st.dataframe(rawdf.head(10))
-			#rawdf = rawdf.drop("grade")
-			#my_bar.progress(percent_complete + 99)
-			#dummies = pd.get_dummies(rawdf["sub_grade"],drop_first=True)
-			#rawdf = pd.concat([rawdf.drop("sub_grade", axis=1),dummies],axis=1)
-			#my_bar.progress(percent_complete + 10)
-			#dummies = pd.get_dummies(rawdf[['verification_status', 'application_type','initial_list_status','purpose']],drop_first=True)
-			#rawdf = pd.concat([rawdf.drop(['verification_status', 'application_type','initial_list_status','purpose'], axis=1),dummies],axis=1)
-			#my_bar.progress(percent_complete + 30)
-			#rawdf["home_ownership"] = rawdf["home_ownership"].replace(["NONE","ANY"],"OTHER")
-			#my_bar.progress(percent_complete + 20)
-			#dummies = pd.get_dummies(rawdf["home_ownership"],drop_first=True)
-			#rawdf = pd.concat([rawdf.drop("home_ownership", axis=1),dummies],axis=1)
-			#my_bar.progress(percent_complete + 10)
-			#rawdf["zipcode"] = rawdf["address"].apply(lambda adress : adress[-5:])
-			#dummies = pd.get_dummies(rawdf["zipcode"],drop_first=True)
-			#rawdf = pd.concat([rawdf.drop("zipcode", axis=1),dummies],axis=1)
-			#rawdf = rawdf.drop("address", axis=1)
-			#rawdf = rawdf.drop("issue_d", axis=1)
-			#my_bar.progress(percent_complete + 10)
-			#rawdf["earliest_cr_line"] = rawdf["earliest_cr_line"].apply(lambda date: int(date[-4:]))
-			#my_bar.progress(percent_complete + 10)
-		st.success('Preprocess Successfull!!', icon="✅")
-		st.dataframe(rawdf.head(10))
-	elif pprocessn == 'No':
-		st.warning('Preprocessing Stopped...Select Yes to Continue', icon="⚠️")
-		st.stop()
+		rawdf["earliest_cr_line"] = rawdf["earliest_cr_line"].apply(lambda date: int(date[-4:]))
+
+	st.success('Preprocess Successfull!!', icon="✅")
+	st.dataframe(rawdf.head(10))
+
 
 
 	
@@ -348,7 +318,7 @@ with modelt:
 	fig12 = plt.figure(figsize=(8,8))
 	plt.plot(losses['loss'], label='loss')
 	plt.plot(losses['val_loss'], label='val_loss')
-	plt.plot(model.history["accuracy"], label='Accuracy')
+	plt.plot(model.history["acc"], label='Accuracy')
 	plt.xlabel("Epoch #", fontsize = 20)
 	plt.ylabel("Losses", fontsize = 20)
 	plt.legend()
