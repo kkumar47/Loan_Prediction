@@ -12,6 +12,7 @@ from sklearn.preprocessing import MinMaxScaler
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense,Dropout
+from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 
 
@@ -23,6 +24,7 @@ ttsplit = st.container()
 smotet = st.container()
 modelt = st.container()
 modele = st.container()
+modelg = st.container()
 
 with header:
 	font="sans serif"
@@ -361,3 +363,9 @@ with modele:
              			file_name="Confusion Matrix.png",
              			mime="image/png")
 	
+with modelg:
+	st.subheader('Gradient Boost Model Training')
+	with st.spinner('Training Gradient Boost Model...'):
+		clf = GradientBoostingClassifier(n_estimators=100, learning_rate=1.0,max_depth=1, random_state=0).fit(X_train, y_train)
+	st.success('Model Training Completed', icon="✅")
+	st.write(clf.score(X_test, y_test))
