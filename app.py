@@ -369,4 +369,5 @@ with modelg:
 		clf = GradientBoostingClassifier(n_estimators=100, learning_rate=1.0,max_depth=1, random_state=0).fit(X_train, y_train)
 	st.success('Model Training Completed', icon="✅")
 	st.markdown('_Mean Accuracy of Gradient Boost Model_')
-	st.metric(clf.score(X_test, y_test))
+	score_gb = clf.score(X_test, y_test)
+	st.metric(label = 'Mean Accuracy',value=score_gb)
