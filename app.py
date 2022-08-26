@@ -348,7 +348,7 @@ with modelt:
 		losses_l = losses[['loss','val_loss']]
 		
 		st.line_chart(losses_l)
-	st.metric(label = 'Mean Accuracy of CNN', value = sum(losses['accuracy'])/25)	
+	st.metric(label = 'Mean Accuracy of CNN', value = sum(losses['val_accuracy'])/25)	
 with modele:
 	st.subheader('CNN Model Evaluation')
 	predictions = (model.predict(X_test) > 0.5).astype("int32")
