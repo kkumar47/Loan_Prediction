@@ -303,7 +303,7 @@ with modelt:
 	X_test = scaler.transform(X_test)
 	col11,col12 = st.columns(2)
 	lrt = col12.slider('Select Learning Rate', min_value=0.01, max_value=0.1, value=0.01, step=0.01, help='Select Learning rate for the Optimizer')
-	opti = col13.radio('Select Model Optimizer',('SGD','Adam'))
+	opti = col11.radio('Select Model Optimizer',('SGD','Adam'))
 	if opti == 'SGD':
 		opt=SGD(learning_rate=lrt)
 	elif opti =='Adam':
