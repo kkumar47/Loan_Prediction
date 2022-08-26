@@ -348,7 +348,7 @@ with modelt:
 		losses_l = losses[['loss','val_loss']]
 		
 		st.line_chart(losses_l)
-		
+	st.metric(label = 'Mean Accuracy of CNN', value = sum(losses['accuracy'])/25)	
 with modele:
 	st.subheader('CNN Model Evaluation')
 	predictions = (model.predict(X_test) > 0.5).astype("int32")
@@ -411,4 +411,4 @@ with modelg:
              			#mime="image/png")
 		    
 	score_gb = clf.score(X_test, y_test)
-	st.metric(label = 'Mean Accuracy',value=score_gb)
+	st.metric(label = 'Mean Accuracy of Gradient Boost',value=score_gb)
