@@ -377,7 +377,7 @@ with modelg:
 		def get_models():
 			models = dict()
 			# define number of trees to consider
-			n_trees = [10, 50, 100, 500, 1000, 5000]
+			n_trees = [100, 500, 1000]
 			for n in n_trees:
 				models[str(n)] = GradientBoostingClassifier(n_estimators=n)
 			return models
