@@ -382,7 +382,7 @@ with modelg:
 			return models
 		models_gb = get_models()
 		results, names = list(), list()
-		for name, model in models.items():
+		for name, model in models_gb.items():
 			# evaluate the model
 			scores = evaluate_model(model, X_train, y_train)
 			# store the results
