@@ -14,8 +14,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense,Dropout
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import classification_report, confusion_matrix
-from sklearn.model_selection import RepeatedStratifiedKFold
-from sklearn.model_selection import cross_val_score
+from tensorflow.keras.optimizers import SGD, Adam
 
 
 header = st.container()
@@ -302,8 +301,13 @@ with modelt:
 	scaler = MinMaxScaler()
 	X_train = scaler.fit_transform(X_train)
 	X_test = scaler.transform(X_test)
-	
-
+	col11,col12 = st.columns(2)
+	lrt = col12.slider('Select Learning Rate', min_value=0.01, max_value=0.1, value=0.01, step=0.01, help='Select Learning rate for the Optimizer')
+	opti = col13.radio('Select Model Optimizer',('SGD','Adam'))
+	if opti == 'SGD':
+		opt=SGD(learning_rate=lrt)
+	elif opti =='Adam':
+		opt=Adam(learning_rate=lrt)
 	with st.spinner('Training CNN Model...'):
 		model = Sequential()
 		model.add(Dense(78, activation="relu"))
@@ -317,7 +321,7 @@ with modelt:
 
 		model.add(Dense(units=1, activation="sigmoid")) #because it's a binary classification
 
-		model.compile(loss="binary_crossentropy", optimizer="adam", metrics=['accuracy'])
+		model.compile(loss="binary_crossentropy", optimizer=opt, metrics=['accuracy'])
 		model.fit(x = X_train, y = y_train, epochs = 25, batch_size = 256, validation_data=(X_test, y_test))
 	st.success('Model Training Completed', icon="✅")
 	losses = pd.DataFrame(model.history.history)
