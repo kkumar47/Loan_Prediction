@@ -14,6 +14,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense,Dropout
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.model_selection import RepeatedStratifiedKFold
 
 
 header = st.container()
@@ -349,7 +350,7 @@ with modele:
 	st.write(classification_report(y_test, predictions))
 	st.markdown('**_Confusion Matrix_**')
 	result =confusion_matrix(y_test,predictions)
-	fig13,ax = plt.subplots(figsize=(8,8))
+	fig13,ax = plt.subplots(figsize=(15,8))
 	snsj = sns.heatmap(result, annot=True, ax=ax)
 	ax.set_xlabel('Predicted Class')
 	ax.set_ylabel('Actual Class')
@@ -366,8 +367,42 @@ with modele:
 with modelg:
 	st.subheader('Gradient Boost Model Training')
 	with st.spinner('Training Gradient Boost Model...'):
-		clf = GradientBoostingClassifier(n_estimators=100, learning_rate=1.0,max_depth=1, random_state=0).fit(X_train, y_train)
+		def evaluate_model(model, X, y):
+			# define the evaluation procedure
+			cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
+			# evaluate the model and collect the results
+			scores = cross_val_score(model, X, y, scoring='accuracy', cv=cv, n_jobs=-1)
+			return scores
+		def get_models():
+			models = dict()
+			# define number of trees to consider
+			n_trees = [10, 50, 100, 500, 1000, 5000]
+			for n in n_trees:
+				models[str(n)] = GradientBoostingClassifier(n_estimators=n)
+			return models
+		models_gb = get_models()
+		results, names = list(), list()
+		for name, model in models.items():
+			# evaluate the model
+			scores = evaluate_model(model, X_train, y_train)
+			# store the results
+			results.append(scores)
+			names.append(name)
+		#clf = GradientBoostingClassifier(n_estimators=100, learning_rate=1.0,max_depth=1, random_state=0).fit(X_train, y_train)
 	st.success('Model Training Completed', icon="✅")
 	st.markdown('_Mean Accuracy of Gradient Boost Model_')
-	score_gb = clf.score(X_test, y_test)
-	st.metric(label = 'Mean Accuracy',value=score_gb)
+	fig14 = plt.figure(figsize=(10,10))
+	plt.boxplot(results, labels=names, showmeans=True
+	plt.xlabel('No. of Estimators')
+	plt.ylabel('Accuracy')
+	plt.savefig("ouputk.png")
+	st.pyplot(fig14)
+	with open("ouputk.png", "rb") as file:
+     				btn = st.download_button(
+             			label="Download Plot",
+             			data=file,
+             			file_name="Gradient Boost Accuracy Plot.png",
+             			mime="image/png")
+		    
+	#score_gb = clf.score(X_test, y_test)
+	#st.metric(label = 'Mean Accuracy',value=score_gb)
