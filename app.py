@@ -333,8 +333,9 @@ with modelt:
 		plt.plot(losses['val_accuracy'], label='val_accuracy')
 	
 		plt.xlabel("Epoch #", fontsize = 20)
-		plt.ylabel("Losses", fontsize = 20)
+		plt.ylabel("Accuracy", fontsize = 20)
 		plt.legend()
+		plt.title('Model Accuracy Plot')
 		plt.savefig('ouputl.png')
 		st.pyplot(fig12)
 		with open("ouputl.png", "rb") as file:
