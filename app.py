@@ -392,7 +392,7 @@ with modelg:
 	st.success('Model Training Completed', icon="✅")
 	st.markdown('_Mean Accuracy of Gradient Boost Model_')
 	fig14 = plt.figure(figsize=(10,10))
-	plt.boxplot(results, labels=names, showmeans=True
+	plt.boxplot(results, labels=names, showmeans=True)
 	plt.xlabel('No. of Estimators')
 	plt.ylabel('Accuracy')
 	plt.savefig("ouputk.png")
