@@ -356,8 +356,7 @@ with modelt:
 with modele:
 	st.subheader('CNN Model Evaluation')
 	predictions = (model.predict(X_test) > 0.5).astype("int32")
-	fpr_keras, tpr_keras, thresholds_keras = roc_curve(y_test, predictions)
-	auc_keras = auc(fpr_keras, tpr_keras)
+
 	st.write(auc_keras)
 	st.markdown('**_Classification Report_**')
 	st.write(classification_report(y_test, predictions))
@@ -376,7 +375,19 @@ with modele:
              			data=file,
              			file_name="Confusion Matrix.png",
              			mime="image/png")
-	
+	st.markdown('**_CNN ROC-AUC Plot_**')
+	fpr_keras, tpr_keras, thresholds_keras = roc_curve(y_test, predictions)
+	auc_keras = auc(fpr_keras, tpr_keras)
+	fig14 = plt.figure(figsize=(8,8))
+	snsk = sns.lineplot(x=fpr_keras,y=tpr_keras)
+	plt.savefig('ouputk.png')
+	st.pyplot(fig14)
+	with open("ouputk.png", "rb") as file:
+     			btn = st.download_button(
+             		label="Download Plot",
+             		data=file,
+             		file_name="CNN ROC.png",
+             		mime="image/png")
 with modelg:
 	st.subheader('Gradient Boost Model Training')
 	with st.spinner('Training Gradient Boost Model...'):
