@@ -416,18 +416,4 @@ with modelg:
 	score_gb = clf.score(X_test, y_test)
 	st.metric(label = 'Mean Accuracy of Gradient Boost',value=score_gb)
 
-with modelsvm:
-	st.subheader('SVC Model Training')
-	with st.spinner('Training Support Vector Classification Model...'):
-		weights = {0:1.0, 1:100.0}
-		model = SVC(gamma='scale', class_weight=weights)
-		model.fit(X_train, y_train)
-		y_pred = model.predict(X_test)
-		acc_sco=metrics.accuracy_score(y_test, y_pred)
-		#cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
-		#scores = cross_val_score(model, X_train, y_train, scoring='accuracy', cv=cv, n_jobs=-1)
-		#acc_sco = mean(scores)
-	st.success('Model Training Completed', icon="✅")
 
-	st.metric(label = 'Mean Accuracy of SVC',value=acc_sco)
-	
