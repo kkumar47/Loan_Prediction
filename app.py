@@ -419,7 +419,7 @@ with modelg:
 with modellr:
 	st.subheader('Logistic Regression Model Training')
 	with st.spinner('Training Logistic Regression Model...'):
-		logit_model=sm.Logit(y_train,X_train)
+		logit_model=sm.Logit(X_train,y_train)
 		result=logit_model.fit()
 		st.write(result)
 	st.success('Model Training Completed', icon="✅")
