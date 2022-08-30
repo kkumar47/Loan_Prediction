@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+from numpy import mean
 import plotly.express as px
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
@@ -15,7 +16,9 @@ from tensorflow.keras.layers import Dense,Dropout
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 from tensorflow.keras.optimizers import SGD, Adam
-
+from sklearn.svm import SVC
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import RepeatedStratifiedKFold
 
 header = st.container()
 rawdata = st.container()
@@ -26,6 +29,7 @@ smotet = st.container()
 modelt = st.container()
 modele = st.container()
 modelg = st.container()
+modelsvm = st.container()
 
 with header:
 	font="sans serif"
@@ -412,3 +416,15 @@ with modelg:
 		    
 	score_gb = clf.score(X_test, y_test)
 	st.metric(label = 'Mean Accuracy of Gradient Boost',value=score_gb)
+
+with modelsvm:
+	st.subheader('SVC Model Training')
+	with st.spinner('Training Support Vector Classification Model...'):
+		weights = {0:1.0, 1:100.0}
+		model = SVC(gamma='scale', class_weight=weights)
+		cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
+		scores = cross_val_score(model, X_train, y_train, scoring='accuracy', cv=cv, n_jobs=-1)
+		acc_sco = mean(scores)
+	st.success('Model Training Completed', icon="✅")
+	st.metric(label = 'Mean Accuracy of SVC',value=acc_sco)
+	
