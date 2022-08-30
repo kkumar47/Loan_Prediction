@@ -352,7 +352,7 @@ with modelt:
 		losses_l = losses[['loss','val_loss']]
 		
 		st.line_chart(losses_l)
-	st.metric(label = 'Mean Accuracy of CNN', value = sum(losses['val_accuracy'])/25)	
+		
 with modele:
 	st.subheader('CNN Model Evaluation')
 	predictions = (model.predict(X_test) > 0.5).astype("int32")
@@ -376,19 +376,22 @@ with modele:
              			file_name="Confusion Matrix.png",
              			mime="image/png")
 	st.markdown('**_CNN ROC-AUC Plot_**')
+	col11, col12 = st.columns(2)
+	col11.metric(label = 'Mean Accuracy of CNN', value = sum(losses['val_accuracy'])/25)
 	fpr_keras, tpr_keras, thresholds_keras = roc_curve(y_test, predictions)
 	auc_keras = auc(fpr_keras, tpr_keras)
-	fig14 = plt.figure(figsize=(8,8))
-	snsk = plt.plot(fpr_keras,tpr_keras)
-	plt.savefig('ouputk.png')
-	st.pyplot(fig14)
-	with open("ouputk.png", "rb") as file:
-     			btn = st.download_button(
-             		label="Download Plot",
-             		data=file,
-             		file_name="CNN ROC.png",
-             		mime="image/png")
-	st.write(auc_keras)
+	col12.metric(label = 'ROC-AUC of CNN', value = auc_keras)
+	#fig14 = plt.figure(figsize=(8,8))
+	#snsk = plt.plot(fpr_keras,tpr_keras)
+	#plt.savefig('ouputk.png')
+	#st.pyplot(fig14)
+	#with open("ouputk.png", "rb") as file:
+     	#		btn = st.download_button(
+        #     		label="Download Plot",
+        #     		data=file,
+        #     		file_name="CNN ROC.png",
+        #     		mime="image/png")
+	#st.write(auc_keras)
 with modelg:
 	st.subheader('Gradient Boost Model Training')
 	with st.spinner('Training Gradient Boost Model...'):
