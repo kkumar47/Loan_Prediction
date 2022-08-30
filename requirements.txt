@@ -9,3 +9,4 @@ tensorflow
 keras
 imblearn
 plotly
+statsmodels
