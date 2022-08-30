@@ -422,8 +422,10 @@ with modellr:
 		logreg = LogisticRegression(random_state=16)
 		logreg.fit(X_train, y_train)
 		y_pred = logreg.predict(X_test)
+		logreg_acc = logreg.score(X_train, y_train)
 	st.success('Model Training Completed', icon="✅")
 	lr_matrix = metrics.confusion_matrix(y_test, y_pred)
 	st.write(lr_matrix)
+	st.metric(label = 'Mean Accuracy of Logistic Regression',value=logreg_acc)
 
 
