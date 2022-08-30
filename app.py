@@ -17,8 +17,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 from tensorflow.keras.optimizers import SGD, Adam
 from sklearn.svm import SVC
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import RepeatedStratifiedKFold
+from sklearn import metrics
 
 header = st.container()
 rawdata = st.container()
@@ -422,9 +421,13 @@ with modelsvm:
 	with st.spinner('Training Support Vector Classification Model...'):
 		weights = {0:1.0, 1:100.0}
 		model = SVC(gamma='scale', class_weight=weights)
-		cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
-		scores = cross_val_score(model, X_train, y_train, scoring='accuracy', cv=cv, n_jobs=-1)
-		acc_sco = mean(scores)
+		model.fit(X_train, y_train)
+		y_pred = model.predict(X_test)
+		acc_sco=metrics.accuracy_score(y_test, y_pred)
+		#cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
+		#scores = cross_val_score(model, X_train, y_train, scoring='accuracy', cv=cv, n_jobs=-1)
+		#acc_sco = mean(scores)
 	st.success('Model Training Completed', icon="✅")
+
 	st.metric(label = 'Mean Accuracy of SVC',value=acc_sco)
 	
