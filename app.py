@@ -16,8 +16,8 @@ from tensorflow.keras.layers import Dense,Dropout
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 from tensorflow.keras.optimizers import SGD, Adam
-from sklearn.svm import SVC
-from sklearn import metrics
+from sklearn.linear_model import LogisticRegression
+import statsmodels.api as sm
 
 header = st.container()
 rawdata = st.container()
@@ -28,7 +28,7 @@ smotet = st.container()
 modelt = st.container()
 modele = st.container()
 modelg = st.container()
-modelsvm = st.container()
+modellr = st.container()
 
 with header:
 	font="sans serif"
@@ -415,5 +415,9 @@ with modelg:
 		    
 	score_gb = clf.score(X_test, y_test)
 	st.metric(label = 'Mean Accuracy of Gradient Boost',value=score_gb)
+	
+with modellr:
+	st.subheader('Logistic Regression Model Training')
+	with st.spinner('Training Logistic Regression Model...'):
 
 
