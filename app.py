@@ -388,6 +388,7 @@ with modele:
              		data=file,
              		file_name="CNN ROC.png",
              		mime="image/png")
+	st.write(auc_keras)
 with modelg:
 	st.subheader('Gradient Boost Model Training')
 	with st.spinner('Training Gradient Boost Model...'):
