@@ -357,7 +357,7 @@ with modele:
 	st.subheader('CNN Model Evaluation')
 	predictions = (model.predict(X_test) > 0.5).astype("int32")
 
-	st.write(auc_keras)
+	
 	st.markdown('**_Classification Report_**')
 	st.write(classification_report(y_test, predictions))
 	st.markdown('**_Confusion Matrix_**')
