@@ -379,7 +379,7 @@ with modele:
 	fpr_keras, tpr_keras, thresholds_keras = roc_curve(y_test, predictions)
 	auc_keras = auc(fpr_keras, tpr_keras)
 	fig14 = plt.figure(figsize=(8,8))
-	snsk = sns.lineplot(x=fpr_keras,y=tpr_keras)
+	snsk = plt.plot(fpr_keras,tpr_keras)
 	plt.savefig('ouputk.png')
 	st.pyplot(fig14)
 	with open("ouputk.png", "rb") as file:
