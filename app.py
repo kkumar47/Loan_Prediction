@@ -17,7 +17,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 from tensorflow.keras.optimizers import SGD, Adam
 from sklearn.linear_model import LogisticRegression
-import statsmodels.api as sm
+from sklearn import metrics
 
 header = st.container()
 rawdata = st.container()
@@ -419,9 +419,11 @@ with modelg:
 with modellr:
 	st.subheader('Logistic Regression Model Training')
 	with st.spinner('Training Logistic Regression Model...'):
-		logit_model=sm.Logit(X,y)
-		result=logit_model.fit()
-		st.write(result)
+		logreg = LogisticRegression(random_state=16)
+		logreg.fit(X_train, y_train)
+		y_pred = logreg.predict(X_test)
 	st.success('Model Training Completed', icon="✅")
+	lr_matrix = metrics.confusion_matrix(y_test, y_pred)
+	st.write(lr_matrix)
 
 
