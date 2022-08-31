@@ -455,4 +455,4 @@ with modelpred:
 	#st.dataframe(rawdf.drop("loan_repaid", axis=1).head(10))
 	Z = rawdf.drop("loan_repaid", axis=1)
 	Z['Id'] = range(1, len(Z.index)+1)
-	st.dataframe(Z.head(10))
+	st.dataframe(Z.tail(10))
