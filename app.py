@@ -452,4 +452,7 @@ with modellr:
 with modelpred:
 	st.subheader('Predict Loan Application')
 	#X['Id'] = range(1, len(X.index)+1)
-	st.dataframe(rawdf.drop("loan_repaid", axis=1).head(10))
+	#st.dataframe(rawdf.drop("loan_repaid", axis=1).head(10))
+	Z = rawdf.drop("loan_repaid", axis=1)
+	Z['Id'] = range(1, len(Z.index)+1)
+	st.dataframe(Z.head(10))
