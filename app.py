@@ -30,6 +30,7 @@ modelt = st.container()
 modele = st.container()
 modelg = st.container()
 modellr = st.container()
+modelpred = st.container()
 
 with header:
 	font="sans serif"
@@ -448,3 +449,7 @@ with modellr:
 	st.metric(label = 'Mean Accuracy of Logistic Regression',value=logreg_acc)
 
 
+with modelpred:
+	st.subheader('Predict Loan Application')
+	X['Id'] = range(1, len(X.index)+1)
+	st.dataframe(X.head(10))
