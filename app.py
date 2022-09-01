@@ -63,7 +63,7 @@ with eda:
 		#snsa = sns.countplot(x="loan_status", data=rawdf).set(title='Loan Data Distribution')
 		snsa = px.histogram(rawdf,x='loan_status')
 		plt.savefig('ouputa.png')
-		st.pyplot(fig1)
+		st.plotly_chart(fig1)
 		#fign = plt.figure(figsize=(5,5))
 		#fign=px.bar(rawdf, x='loan_status')
 		#st.plotly_chart(fign)
