@@ -60,7 +60,8 @@ with eda:
 	if ddist == 'Overall Data':
 		st.markdown('**_Loan Data Distribution_**')
 		fig1 = plt.figure(figsize=(8,8))
-		snsa = sns.countplot(x="loan_status", data=rawdf).set(title='Loan Data Distribution')
+		#snsa = sns.countplot(x="loan_status", data=rawdf).set(title='Loan Data Distribution')
+		snsa = px.histogram(rawdf,x='loan_status')
 		plt.savefig('ouputa.png')
 		st.pyplot(fig1)
 		#fign = plt.figure(figsize=(5,5))
