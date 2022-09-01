@@ -103,16 +103,18 @@ with eda:
 	col1, col2 = st.columns(2)
 	with col1:
 		st.markdown('**_Installment vs Loan Amount_**')
-		fig4 = plt.figure(figsize=(6,6))
-		snsd = sns.scatterplot(x="installment", y="loan_amnt", hue='loan_status', data=rawdf)
-		plt.savefig('ouputd.png')
-		st.pyplot(fig4)
-		with open("ouputd.png", "rb") as file:
-     				btn = st.download_button(
-             			label="Download Plot",
-             			data=file,
-             			file_name="Installment vs Loan Amount.png",
-             			mime="image/png")
+		#fig4 = plt.figure(figsize=(6,6))
+		#snsd = sns.scatterplot(x="installment", y="loan_amnt", hue='loan_status', data=rawdf)
+		snsd = px.scatter(rawdf, x="installment", y="loan_amnt")
+		#plt.savefig('ouputd.png')
+		#st.pyplot(fig4)
+		st.plotly_chart(snsd)
+		#with open("ouputd.png", "rb") as file:
+     		#		btn = st.download_button(
+             	#		label="Download Plot",
+             	#		data=file,
+             	#		file_name="Installment vs Loan Amount.png",
+             	#		mime="image/png")
 	with col2:
 		st.markdown('**_Loan Status vs Loan Amount_**')
 		fig5 = plt.figure(figsize=(6,6))
