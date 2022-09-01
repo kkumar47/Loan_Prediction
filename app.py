@@ -106,7 +106,7 @@ with eda:
 	#fig4 = plt.figure(figsize=(6,6))
 	#snsd = sns.scatterplot(x="installment", y="loan_amnt", hue='loan_status', data=rawdf)
 	snsd = px.scatter(rawdf, x="installment", y="loan_amnt", color="loan_status")
-	snsd.update_layout(autosize=False,width=400, height=400,margin=dict(l=50, r=50,b=100,t=100,pad=4))
+	#snsd.update_layout(autosize=False,width=400, height=400,margin=dict(l=50, r=50,b=100,t=100,pad=4))
 	#plt.savefig('ouputd.png')
 	#st.pyplot(fig4)
 	st.plotly_chart(snsd)
@@ -121,7 +121,7 @@ with eda:
 	#fig5 = plt.figure(figsize=(6,6))
 	#snse = sns.boxplot(x="loan_status", y="loan_amnt",  data=rawdf)
 	snse = px.box(rawdf, x="loan_status", y="loan_amnt", color="loan_status")
-	snse.update_layout(autosize=False,width=400, height=400,margin=dict(l=50, r=50,b=100,t=100,pad=4))
+	#snse.update_layout(autosize=False,width=400, height=400,margin=dict(l=50, r=50,b=100,t=100,pad=4))
 	#plt.savefig('oupute.png')
 	st.plotly_chart(snse)
 	#with open("oupute.png", "rb") as file:
