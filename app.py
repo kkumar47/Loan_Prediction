@@ -100,36 +100,36 @@ with eda:
              		file_name="Correlation Plot.png",
              		mime="image/png")
 	
-	col1, col2 = st.columns(2)
-	with col1:
-		st.markdown('**_Installment vs Loan Amount_**')
-		#fig4 = plt.figure(figsize=(6,6))
-		#snsd = sns.scatterplot(x="installment", y="loan_amnt", hue='loan_status', data=rawdf)
-		snsd = px.scatter(rawdf, x="installment", y="loan_amnt", color="loan_status")
-		snsd.update_layout(autosize=False,width=400, height=400,margin=dict(l=50, r=50,b=100,t=100,pad=4))
-		#plt.savefig('ouputd.png')
-		#st.pyplot(fig4)
-		st.plotly_chart(snsd)
-		#with open("ouputd.png", "rb") as file:
-     		#		btn = st.download_button(
-             	#		label="Download Plot",
-             	#		data=file,
-             	#		file_name="Installment vs Loan Amount.png",
-             	#		mime="image/png")
-	with col2:
-		st.markdown('**_Loan Status vs Loan Amount_**')
-		#fig5 = plt.figure(figsize=(6,6))
-		#snse = sns.boxplot(x="loan_status", y="loan_amnt",  data=rawdf)
-		snse = px.box(rawdf, x="loan_status", y="loan_amnt", color="loan_status")
-		snse.update_layout(autosize=False,width=400, height=400,margin=dict(l=50, r=50,b=100,t=100,pad=4))
-		#plt.savefig('oupute.png')
-		st.plotly_chart(snse)
-		#with open("oupute.png", "rb") as file:
-     		#		btn = st.download_button(
-             	#		label="Download Plot",
-             	#		data=file,
-             	#		file_name="Box Plot.png",
-             	#		mime="image/png")
+	
+	
+	st.markdown('**_Installment vs Loan Amount_**')
+	#fig4 = plt.figure(figsize=(6,6))
+	#snsd = sns.scatterplot(x="installment", y="loan_amnt", hue='loan_status', data=rawdf)
+	snsd = px.scatter(rawdf, x="installment", y="loan_amnt", color="loan_status")
+	snsd.update_layout(autosize=False,width=400, height=400,margin=dict(l=50, r=50,b=100,t=100,pad=4))
+	#plt.savefig('ouputd.png')
+	#st.pyplot(fig4)
+	st.plotly_chart(snsd)
+	#with open("ouputd.png", "rb") as file:
+     	#		btn = st.download_button(
+             #		label="Download Plot",
+             #		data=file,
+             #		file_name="Installment vs Loan Amount.png",
+             #		mime="image/png")
+	
+	st.markdown('**_Loan Status vs Loan Amount_**')
+	#fig5 = plt.figure(figsize=(6,6))
+	#snse = sns.boxplot(x="loan_status", y="loan_amnt",  data=rawdf)
+	snse = px.box(rawdf, x="loan_status", y="loan_amnt", color="loan_status")
+	snse.update_layout(autosize=False,width=400, height=400,margin=dict(l=50, r=50,b=100,t=100,pad=4))
+	#plt.savefig('oupute.png')
+	st.plotly_chart(snse)
+	#with open("oupute.png", "rb") as file:
+     	#		btn = st.download_button(
+             #		label="Download Plot",
+             #		data=file,
+             #		file_name="Box Plot.png",
+             #		mime="image/png")
 	
 	ggrade = st.radio('Select Grade Level',('Grade','Subgrade'))
 	if ggrade == 'Grade':
