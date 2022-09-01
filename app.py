@@ -118,16 +118,18 @@ with eda:
              	#		mime="image/png")
 	with col2:
 		st.markdown('**_Loan Status vs Loan Amount_**')
-		fig5 = plt.figure(figsize=(6,6))
-		snse = sns.boxplot(x="loan_status", y="loan_amnt",  data=rawdf)
-		plt.savefig('oupute.png')
-		st.pyplot(fig5)
-		with open("oupute.png", "rb") as file:
-     				btn = st.download_button(
-             			label="Download Plot",
-             			data=file,
-             			file_name="Box Plot.png",
-             			mime="image/png")
+		#fig5 = plt.figure(figsize=(6,6))
+		#snse = sns.boxplot(x="loan_status", y="loan_amnt",  data=rawdf)
+		snse = px.box(rawdf, x="loan_status", y="loan_amnt")
+		snse.update_layout(autosize=False,width=450, height=450,margin=dict(l=50, r=50,b=100,t=100,pad=4))
+		#plt.savefig('oupute.png')
+		st.plotly_chart(snse)
+		#with open("oupute.png", "rb") as file:
+     		#		btn = st.download_button(
+             	#		label="Download Plot",
+             	#		data=file,
+             	#		file_name="Box Plot.png",
+             	#		mime="image/png")
 	
 	ggrade = st.radio('Select Grade Level',('Grade','Subgrade'))
 	if ggrade == 'Grade':
