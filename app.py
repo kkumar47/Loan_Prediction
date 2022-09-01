@@ -60,10 +60,10 @@ with eda:
 	if ddist == 'Overall Data':
 		st.markdown('**_Loan Data Distribution_**')
 		fig1 = plt.figure(figsize=(8,8))
-		#snsa = sns.countplot(x="loan_status", data=rawdf).set(title='Loan Data Distribution')
-		snsa = px.histogram(rawdf,x='loan_status')
+		snsa = sns.countplot(x="loan_status", data=rawdf).set(title='Loan Data Distribution')
+		#snsa = px.histogram(rawdf,x='loan_status')
 		plt.savefig('ouputa.png')
-		st.plotly_chart(fig1)
+		st.pyplot(fig1)
 		#fign = plt.figure(figsize=(5,5))
 		#fign=px.bar(rawdf, x='loan_status')
 		#st.plotly_chart(fign)
