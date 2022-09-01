@@ -105,7 +105,7 @@ with eda:
 		st.markdown('**_Installment vs Loan Amount_**')
 		#fig4 = plt.figure(figsize=(6,6))
 		#snsd = sns.scatterplot(x="installment", y="loan_amnt", hue='loan_status', data=rawdf)
-		snsd = px.scatter(rawdf, x="installment", y="loan_amnt")
+		snsd = px.scatter(rawdf, x="installment", y="loan_amnt", color="loan_status")
 		#plt.savefig('ouputd.png')
 		#st.pyplot(fig4)
 		st.plotly_chart(snsd)
