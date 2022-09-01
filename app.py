@@ -120,7 +120,7 @@ with eda:
 		st.markdown('**_Loan Status vs Loan Amount_**')
 		#fig5 = plt.figure(figsize=(6,6))
 		#snse = sns.boxplot(x="loan_status", y="loan_amnt",  data=rawdf)
-		snse = px.box(rawdf, x="loan_status", y="loan_amnt")
+		snse = px.box(rawdf, x="loan_status", y="loan_amnt", color="loan_status")
 		snse.update_layout(autosize=False,width=450, height=450,margin=dict(l=50, r=50,b=100,t=100,pad=4))
 		#plt.savefig('oupute.png')
 		st.plotly_chart(snse)
