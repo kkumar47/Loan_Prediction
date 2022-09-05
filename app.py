@@ -317,7 +317,7 @@ with featurei:
 		rf = RandomForestRegressor(n_estimators=150)
 		rf.fit(W_train, z_train)
 		sort = rf.feature_importances_.argsort()
-	st.success('Feature importance evaluated...Plotting results below', , icon="✅")
+	st.success('Feature importance evaluated...Plotting results below' , icon="✅")
 	
 	fig20 = plt.figure(figsize=(8,8))
 	plt.barh(W.feature_names[sort], rf.feature_importances_[sort])
