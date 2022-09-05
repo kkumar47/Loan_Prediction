@@ -317,8 +317,9 @@ with featurei:
 		rf = RandomForestRegressor(n_estimators=150)
 		rf.fit(W_train, z_train)
 		sort = rf.feature_importances_.argsort()
+		sort = pd.dataframe(sort)
 	st.success('Feature importance evaluated...Plotting results below', icon="✅")
-	sort['Feature_name'] = W.columns
+	sort['Feature_name'] = pd.dataframe(W.columns)
 	st.write(sort)
 	
 
