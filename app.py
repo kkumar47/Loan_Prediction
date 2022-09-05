@@ -320,7 +320,7 @@ with featurei:
 		sort = pd.DataFrame(sort)
 	st.success('Feature importance evaluated...Plotting results below', icon="✅")
 	sort['Feature Name'] = pd.DataFrame(W.columns)
-	sort.rename(index={0:"Score"})
+	sort.rename({0:"Score"}, axis='columns')
 	snsfi = px.bar(sort, x="Score", y="Feature Name", orientation='h')
 	st.plotly_chart(snsfi)
 	
