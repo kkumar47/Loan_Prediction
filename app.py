@@ -318,13 +318,8 @@ with featurei:
 		rf.fit(W_train, z_train)
 		sort = rf.feature_importances_.argsort()
 	st.success('Feature importance evaluated...Plotting results below', icon="✅")
-	
-	fig20 = plt.figure(figsize=(8,8))
-	plt.barh(W.feature_names[sort], rf.feature_importances_[sort])
-	plt.xlabel('Feature Importance Score')
-	plt.ylabel('Features')
-	plt.savefig(outputz.png)
-	st.pyplot(fig20)
+	st.write(sort)
+
 	
 with modelt:
 	st.subheader('CNN Model Training')
