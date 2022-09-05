@@ -321,9 +321,9 @@ with featurei:
 	st.success('Feature importance evaluated...Plotting results below', icon="✅")
 	sort['Feature Name'] = pd.DataFrame(W.columns)
 	#sort.rename({0:"Score"}, axis='columns')
-	st.write(sort)
-	#snsfi = px.bar(sort, x="Score", y="Feature Name", orientation='h')
-	#st.plotly_chart(snsfi)
+	#st.write(sort)
+	snsfi = px.bar(sort, x="Score", y="Feature Name", orientation='h')
+	st.plotly_chart(snsfi)
 	
 	
 
