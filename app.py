@@ -319,6 +319,7 @@ with featurei:
 		sort = rf.feature_importances_.argsort()
 	st.success('Feature importance evaluated...Plotting results below', icon="✅")
 	st.write(sort)
+	st.write(W.columns)
 
 	
 with modelt:
