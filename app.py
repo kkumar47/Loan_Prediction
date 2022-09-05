@@ -318,8 +318,9 @@ with featurei:
 		rf.fit(W_train, z_train)
 		sort = rf.feature_importances_.argsort()
 	st.success('Feature importance evaluated...Plotting results below', icon="✅")
+	sort['Feature_name'] = W.columns
 	st.write(sort)
-	st.write(W.columns)
+	
 
 	
 with modelt:
