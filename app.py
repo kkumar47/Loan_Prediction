@@ -319,8 +319,11 @@ with featurei:
 		sort = rf.feature_importances_.argsort()
 		sort = pd.DataFrame(sort)
 	st.success('Feature importance evaluated...Plotting results below', icon="✅")
-	sort['Feature_name'] = pd.DataFrame(W.columns)
-	st.write(sort)
+	sort['Feature Name'] = pd.DataFrame(W.columns)
+	sort.rename(index={0:"Score"})
+	snsfi = px.bar(sort, x="Score", y="Feature Name", orientation='h')
+	st.plotly_chart(snsfi)
+	
 	
 
 	
