@@ -17,6 +17,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 from tensorflow.keras.optimizers import SGD, Adam
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestRegressor
 from sklearn import metrics
 from sklearn.metrics import roc_curve,auc
 
@@ -25,6 +26,7 @@ rawdata = st.container()
 eda = st.container()
 pprocess = st.container()
 ttsplit = st.container()
+featurei = st.container()
 smotet = st.container()
 modelt = st.container()
 modele = st.container()
@@ -279,7 +281,6 @@ with pprocess:
 	st.dataframe(rawdf.head(10))
 
 
-
 	
 with ttsplit:
 	st.subheader('Train-Test Split')
@@ -306,7 +307,25 @@ with ttsplit:
 	#unique, counts = np.unique(y_train_ad, return_counts=True)
 	#result = np.column_stack((unique, counts)) 
 	#st.write((result))
-		
+
+with featurei:	
+	st.subheader('Feature Importance using Random Forest')
+	with st.spinner('Computing Feature importance..'):
+		W = rawdf.drop("loan_repaid", axis=1)
+		z = rawdf["loan_repaid"]
+		W_train, W_test, z_train, z_test = train_test_split(W,z,test_size=0.25, random_state=42)
+		rf = RandomForestRegressor(n_estimators=150)
+		rf.fit(W_train, z_train)
+		sort = rf.feature_importances_.argsort()
+	st.success('Feature importance evaluated...Plotting results below', , icon="✅")
+	
+	fig20 = plt.figure(figsize=(8,8))
+	plt.barh(W.feature_names[sort], rf.feature_importances_[sort])
+	plt.xlabel('Feature Importance Score')
+	plt.ylabel('Features')
+	plt.savefig(outputz.png)
+	st.pyplot(fig20)
+	
 with modelt:
 	st.subheader('CNN Model Training')
 	scaler = MinMaxScaler()
