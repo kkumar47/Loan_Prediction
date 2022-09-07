@@ -22,6 +22,7 @@ from sklearn import metrics
 from sklearn.metrics import roc_curve,auc
 
 header = st.container()
+cred = st.container()
 rawdata = st.container()
 eda = st.container()
 pprocess = st.container()
@@ -38,6 +39,18 @@ with header:
 	font="sans serif"
 	textColor="#26273"
 	st.title('Loan Default Prediction System')
+with cred:
+	st.subheader('Login')
+	col1, col2 = st.columns(2)
+	owner = col1.text_input('User Name', value='', help='Enter User Id')
+	token = col2.text_input('Password', type = 'password',value='', help='Enter Password')
+	if owner != 'admin':
+		st.write('Wrong User Name')
+		st.stop()
+	if token != 'test123':
+		st.write('Wrong Token')
+		st.stop()
+	st.write('Credentials Correct')
   
 def raw_data():
 	return pd.read_csv('https://raw.githubusercontent.com/kkumar47/Loan_Prediction/master/lending_club_loan_two.csv', nrows=200000)
