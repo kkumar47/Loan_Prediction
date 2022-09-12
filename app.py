@@ -472,9 +472,13 @@ with modelg:
              			#data=file,
              			#file_name="Gradient Boost Accuracy Plot.png",
              			#mime="image/png")
-		    
+	col22, col23 = st.columns(2)	    
 	score_gb = clf.score(X_test, y_test)
-	st.metric(label = 'Mean Accuracy of Gradient Boost',value=score_gb)
+	col22.metric(label = 'Mean Accuracy of Gradient Boost',value=score_gb)
+	probs_xg = clf.predict_proba(X_test)[:, 1]
+	auc_xg = roc_auc_score(y_test, probs_xg)
+	fpr_xg, tpr_xg, thresholds_xg = roc_curve(y_test, probs_xg)
+	col23.metric(label = 'ROC-AUC of Gradient Boost',value=auc_xg)
 	
 with modellr:
 	st.subheader('Logistic Regression Model Training')
