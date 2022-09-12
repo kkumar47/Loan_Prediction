@@ -19,7 +19,7 @@ from tensorflow.keras.optimizers import SGD, Adam
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestRegressor
 from sklearn import metrics
-from sklearn.metrics import roc_curve,auc
+from sklearn.metrics import roc_curve,auc, roc_auc_score
 
 header = st.container()
 cred = st.container()
@@ -483,10 +483,15 @@ with modellr:
 		logreg.fit(X_train, y_train)
 		y_pred = logreg.predict(X_test)
 		logreg_acc = logreg.score(X_train, y_train)
+		probs_xg = logreg.predict_proba(X_test)[:, 1]
+		auc_xg = roc_auc_score(y_test, probs_xg)
+		fpr_xg, tpr_xg, thresholds_xg = roc_curve(y_test, probs_xg)
 	st.success('Model Training Completed', icon="✅")
 	lr_matrix = metrics.confusion_matrix(y_test, y_pred)
 	st.write(lr_matrix)
-	st.metric(label = 'Mean Accuracy of Logistic Regression',value=logreg_acc)
+	col20,col21 = st.columns(2)
+	col20.metric(label = 'Mean Accuracy of Logistic Regression',value=logreg_acc)
+	col21.metric(label = 'ROC-AUC of Logistic Regression',value=auc_xg)
 
 
 with modelpred:
