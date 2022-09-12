@@ -493,6 +493,8 @@ with modellr:
 	st.success('Model Training Completed', icon="✅")
 	lr_matrix = metrics.confusion_matrix(y_test, y_pred)
 	st.write(lr_matrix)
+	fig14 = px.imshow(lr_matrix, text_auto=True)
+	st.plotly_chart(fig14)
 	col20,col21 = st.columns(2)
 	col20.metric(label = 'Mean Accuracy of Logistic Regression',value=logreg_acc)
 	col21.metric(label = 'ROC-AUC of Logistic Regression',value=auc_xg)
