@@ -436,42 +436,10 @@ with modele:
 with modelg:
 	st.subheader('Gradient Boost Model Training')
 	with st.spinner('Training Gradient Boost Model...'):
-		#def evaluate_model(model, X, y):
-			# define the evaluation procedure
-			#cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=1)
-			# evaluate the model and collect the results
-			#scores = cross_val_score(model, X, y, scoring='accuracy', cv=cv, n_jobs=-1)
-			#return scores
-		#def get_models():
-			#models = dict()
-			# define number of trees to consider
-			#n_trees = [100, 500, 1000]
-			#for n in n_trees:
-				#models[str(n)] = GradientBoostingClassifier(n_estimators=n)
-			#return models
-		#models = get_models()
-		#results, names = list(), list()
-		#for name, model in models.items():
-			# evaluate the model
-			#scores = evaluate_model(model, X_train, y_train)
-			# store the results
-			#results.append(scores)
-			#names.append(name)
+		
 		clf = GradientBoostingClassifier(n_estimators=500, learning_rate=0.5,max_depth=1, random_state=0).fit(X_train, y_train)
 	st.success('Model Training Completed', icon="✅")
-	#st.markdown('_Mean Accuracy of Gradient Boost Model_')
-	#fig14 = plt.figure(figsize=(10,10))
-	#plt.boxplot(results, labels=names, showmeans=True)
-	#plt.xlabel('No. of Estimators')
-	#plt.ylabel('Accuracy')
-	#plt.savefig("ouputk.png")
-	#st.pyplot(fig14)
-	#with open("ouputk.png", "rb") as file:
-     				#btn = st.download_button(
-             			#label="Download Plot",
-             			#data=file,
-             			#file_name="Gradient Boost Accuracy Plot.png",
-             			#mime="image/png")
+
 	col22, col23 = st.columns(2)	    
 	score_gb = clf.score(X_test, y_test)
 	col22.metric(label = 'Mean Accuracy of Gradient Boost',value=score_gb)
@@ -479,6 +447,11 @@ with modelg:
 	auc_xg = roc_auc_score(y_test, probs_xg)
 	fpr_xg, tpr_xg, thresholds_xg = roc_curve(y_test, probs_xg)
 	col23.metric(label = 'ROC-AUC of Gradient Boost',value=auc_xg)
+	y_pred_xg = clf.predict(X_test)
+	xg_matrix = metrics.confusion_matrix(y_test, y_pred_xg)
+	st.markdown('**_Confusion Matrix_**')
+	fig15 = px.imshow(xg_matrix, text_auto=True)
+	st.plotly_chart(fig15)
 	
 with modellr:
 	st.subheader('Logistic Regression Model Training')
@@ -492,7 +465,7 @@ with modellr:
 		fpr_xg, tpr_xg, thresholds_xg = roc_curve(y_test, probs_xg)
 	st.success('Model Training Completed', icon="✅")
 	lr_matrix = metrics.confusion_matrix(y_test, y_pred)
-	st.write(lr_matrix)
+	st.markdown('**_Confusion Matrix_**')
 	fig14 = px.imshow(lr_matrix, text_auto=True)
 	st.plotly_chart(fig14)
 	col20,col21 = st.columns(2)
