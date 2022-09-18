@@ -5,7 +5,6 @@ import seaborn as sns
 import numpy as np
 from numpy import mean
 import plotly.express as px
-import plotly.figure_factory as ff
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 import time
@@ -80,8 +79,7 @@ with eda:
 		
 	elif ddist == 'Loan Amount':
 		st.markdown('**_Loan Amount Distribution_**')
-		fig2c = ff.create_distplot(rawdf, 'loan_status')
-		st.pyplot(fig2c)
+		
 		fig2 = plt.figure(figsize=(6,6))
 		snsb = sns.histplot(x="loan_amnt", hue ='loan_status',data=rawdf, kde=True).set(title='Loan Amount Distribution')
 		plt.savefig('ouputb.png')
