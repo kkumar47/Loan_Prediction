@@ -489,4 +489,8 @@ with modelpred:
 	#st.dataframe(rawdf.drop("loan_repaid", axis=1).head(10))
 	Z = rawdf.drop("loan_repaid", axis=1)
 	Z['Id'] = range(1, len(Z.index)+1)
-	st.dataframe(Z.tail(10))
+	Id_s = Z['Id'].unique().tolist()
+	idse = st.selectbox('Select Loan Id to Predict', Id_s, index=0, help='Select Loan Id for which the prediction has to be made')
+	lidse = Z.loc[Z['Id']==idse]
+	lidse = lidse.iloc[:,:-1]
+	st.dataframe(lidse)
