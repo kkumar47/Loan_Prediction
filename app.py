@@ -408,9 +408,11 @@ with modele:
 	#st.write(auc_keras)
 with modelg:
 	st.subheader('Gradient Boost Model Training')
+	lrtx = st.slider('Select Learning Rate', min_value=0.1, max_value=0.5, value=0.1, step=0.05, help='Select Learning rate for the Optimizer')
+	est = st.slider ('Select Number of Estimators', min_value=300,max_value=750, value=500, step=50, help='Select Estimator Size' )
 	with st.spinner('Training Gradient Boost Model...'):
 		
-		clf = GradientBoostingClassifier(n_estimators=500, learning_rate=0.5,max_depth=1, random_state=0).fit(X_train, y_train)
+		clf = GradientBoostingClassifier(n_estimators=est, learning_rate=lrtx,max_depth=1, random_state=0).fit(X_train, y_train)
 	st.success('Model Training Completed', icon="✅")
 
 	col22, col23 = st.columns(2)	    
