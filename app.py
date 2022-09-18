@@ -335,6 +335,7 @@ with featurei:
 	sort['Feature Name'] = pd.DataFrame(W.columns)
 	#sort.rename({0:"Score"}, axis='columns')
 	#st.write(sort)
+	sort = sort.sort_values(by=['Score'])
 	snsfi = px.bar(sort, x="Score", y="Feature Name", orientation='h')
 	st.plotly_chart(snsfi)
 	
