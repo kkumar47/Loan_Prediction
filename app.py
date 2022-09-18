@@ -466,4 +466,5 @@ with modelpred:
 	idse = st.selectbox('Select Loan Id to Predict', Id_s, index=0, help='Select Loan Id for which the prediction has to be made')
 	lidse = Z.loc[Z['Id']==idse]
 	lidse = lidse.iloc[:,:-1]
-	st.dataframe(lidse)
+	ocome = (model.predict(lidse) > 0.5).astype("int32")
+	st.write(ocome)
