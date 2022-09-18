@@ -104,7 +104,7 @@ with eda:
 	#rawdf['loan_status'].value_counts().plot(kind='pie')
 	#st.pyplot(fig3)
 	st.markdown('**_Correlation Plot_**')
-	fig3c = px.imshow(rawdf.corr(), text_auto=True,width=800, height=400)
+	fig3c = px.imshow(rawdf.corr(), text_auto=True,width=1800, height=1400)
 	st.plotly_chart(fig3c)
 	fig3 = plt.figure(figsize=(10,10))
 	snsc = sns.heatmap(rawdf.corr(), annot=True, cmap="viridis")
