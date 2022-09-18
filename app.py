@@ -326,7 +326,7 @@ with featurei:
 	feati = st.radio('Do you want to view Feature Importance?', ('No','Yes'))
 	if feati == 'No':
 		st.markdown('_Skipping Feature Importance_')
-	if feati =='Yes'
+	if feati =='Yes':
 		with st.spinner('Computing Feature importance..'):
 			W = rawdf.drop("loan_repaid", axis=1)
 			z = rawdf["loan_repaid"]
