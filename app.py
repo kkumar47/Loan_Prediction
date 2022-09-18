@@ -80,7 +80,7 @@ with eda:
 		
 	elif ddist == 'Loan Amount':
 		st.markdown('**_Loan Amount Distribution_**')
-		fig2c = ff.create_distplot(rawdf, ['loan_status'])
+		fig2c = ff.create_distplot(rawdf, 'loan_status')
 		st.pyplot(fig2c)
 		fig2 = plt.figure(figsize=(6,6))
 		snsb = sns.histplot(x="loan_amnt", hue ='loan_status',data=rawdf, kde=True).set(title='Loan Amount Distribution')
