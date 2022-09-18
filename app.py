@@ -463,7 +463,7 @@ with modellr:
 		y_pred = logreg.predict(X_test)
 		logreg_acc = logreg.score(X_train, y_train)
 		probs_xg = logreg.predict_proba(X_test)[:, 1]
-		auc_xg = roc_auc_score(y_test, probs_xg)
+		auc_lr = roc_auc_score(y_test, probs_xg)
 		fpr_xg, tpr_xg, thresholds_xg = roc_curve(y_test, probs_xg)
 	st.success('Model Training Completed', icon="✅")
 	lr_matrix = metrics.confusion_matrix(y_test, y_pred)
@@ -474,11 +474,17 @@ with modellr:
 	st.plotly_chart(fig14)
 	col20,col21 = st.columns(2)
 	col20.metric(label = 'Mean Accuracy of Logistic Regression',value=logreg_acc)
-	col21.metric(label = 'ROC-AUC of Logistic Regression',value=auc_xg)
+	col21.metric(label = 'ROC-AUC of Logistic Regression',value=auc_lr)
 
 
 with modelpred:
 	st.subheader('Predict Loan Application')
+	if auc_keras > auc_xg and auc_keras > auc_lr:
+		st.markdown(''**_CNN Model used for Prediction_**'')
+	if auc_xg > auc_keras and auc_xg > auc_lr:
+		st.markdown(''**_Gradient Boost Model used for Prediction_**'')
+	if auc_lr > auc_keras and auc_lr > auc_xg:
+		st.markdown(''**_Logistic Regression Model used for Prediction_**'')
 	#X['Id'] = range(1, len(X.index)+1)
 	#st.dataframe(rawdf.drop("loan_repaid", axis=1).head(10))
 	Z = rawdf.drop("loan_repaid", axis=1)
