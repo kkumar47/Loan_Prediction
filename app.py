@@ -477,9 +477,9 @@ with modelpred:
 		st.markdown('**_Logistic Regression Model used for Prediction_**')
 		ocome = logreg.predict(lidse)
 		if ocome[0] == 1:
-			st.success('Customer Will not default on their Loan', icon="🥳")
+			st.success('Customer May not default on their Loan', icon="🥳")
 		else:
-			st.success('Customer Will not default on their Loan', icon="🤢")
+			st.success('Customer May default on their Loan', icon="🤢")
 	st.balloons()
 
 	
