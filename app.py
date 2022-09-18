@@ -467,4 +467,7 @@ with modelpred:
 	lidse = Z.loc[Z['Id']==idse]
 	lidse = lidse.iloc[:,:-1]
 	ocome = (model.predict(lidse) > 0.5).astype("int32")
-	st.write(type(ocome))
+	if ocome[0] == 1:
+		st.markdown('**Customer Will not default on their Loan**')
+	else:
+		st.markdown('**Customer May default on their Loan**')
