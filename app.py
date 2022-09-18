@@ -231,6 +231,8 @@ with eda:
 	rawdf = rawdf.drop("loan_status", axis=1)
 	st.markdown('**_Correlation Plot with Encoded Loan Status-Loan Repaid_**')
 	fig9 = plt.figure(figsize=(8,8))
+	sampcorr =  rawdf.corr()["loan_repaid"].sort_values().drop("loan_repaid")
+	st.dataframe(sampcorr)
 	snsi = rawdf.corr()["loan_repaid"].sort_values().drop("loan_repaid").plot(kind="bar")
 	plt.savefig('ouputi.png')
 	st.pyplot(fig9)
@@ -410,19 +412,7 @@ with modele:
 	result =confusion_matrix(y_test,predictions)
 	fig25 = px.imshow(result, text_auto=True)
 	st.plotly_chart(fig25)
-	fig13,ax = plt.subplots(figsize=(15,8))
-	snsj = sns.heatmap(result, annot=True, ax=ax,fmt="d")
-	ax.set_xlabel('Predicted Class')
-	ax.set_ylabel('Actual Class')
-	ax.set_title('Confusion Matrix')
-	plt.savefig("ouputj.png")
-	st.pyplot(fig13)
-	with open("ouputj.png", "rb") as file:
-     				btn = st.download_button(
-             			label="Download Plot",
-             			data=file,
-             			file_name="Confusion Matrix.png",
-             			mime="image/png")
+	
 	st.markdown('**_CNN ROC-AUC Plot_**')
 	col11, col12 = st.columns(2)
 	col11.metric(label = 'Mean Accuracy of CNN', value = sum(losses['val_accuracy'])/25)
