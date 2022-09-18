@@ -408,6 +408,8 @@ with modele:
 	st.write(classification_report(y_test, predictions))
 	st.markdown('**_Confusion Matrix_**')
 	result =confusion_matrix(y_test,predictions)
+	fig25 = px.imshow(result, text_auto=True)
+	st.plotly_chart(fig25)
 	fig13,ax = plt.subplots(figsize=(15,8))
 	snsj = sns.heatmap(result, annot=True, ax=ax,fmt="d")
 	ax.set_xlabel('Predicted Class')
