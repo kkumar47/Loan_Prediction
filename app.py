@@ -480,11 +480,11 @@ with modellr:
 with modelpred:
 	st.subheader('Predict Loan Application')
 	if auc_keras > auc_xg and auc_keras > auc_lr:
-		st.markdown(''**_CNN Model used for Prediction_**'')
+		st.markdown('**_CNN Model used for Prediction_**')
 	if auc_xg > auc_keras and auc_xg > auc_lr:
-		st.markdown(''**_Gradient Boost Model used for Prediction_**'')
+		st.markdown('**_Gradient Boost Model used for Prediction_**')
 	if auc_lr > auc_keras and auc_lr > auc_xg:
-		st.markdown(''**_Logistic Regression Model used for Prediction_**'')
+		st.markdown('**_Logistic Regression Model used for Prediction_**')
 	#X['Id'] = range(1, len(X.index)+1)
 	#st.dataframe(rawdf.drop("loan_repaid", axis=1).head(10))
 	Z = rawdf.drop("loan_repaid", axis=1)
