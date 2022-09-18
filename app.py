@@ -5,6 +5,7 @@ import seaborn as sns
 import numpy as np
 from numpy import mean
 import plotly.express as px
+import plotly.figure_factory as ff
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 import time
@@ -76,22 +77,11 @@ with eda:
 		st.markdown('**_Loan Data Distribution_**')
 		figa = px.histogram(rawdf, x="loan_status", color="loan_status")
 		st.plotly_chart(figa)
-		fig1 = plt.figure(figsize=(8,8))
-		snsa = sns.countplot(x="loan_status", data=rawdf).set(title='Loan Data Distribution')
-		#snsa = px.histogram(rawdf,x='loan_status')
-		plt.savefig('ouputa.png')
-		st.pyplot(fig1)
-		#fign = plt.figure(figsize=(5,5))
-		#fign=px.bar(rawdf, x='loan_status')
-		#st.plotly_chart(fign)
-		with open("ouputa.png", "rb") as file:
-     				btn = st.download_button(
-             			label="Download Plot",
-             			data=file,
-             			file_name="Data Distribution.png",
-             			mime="image/png")
+		
 	elif ddist == 'Loan Amount':
 		st.markdown('**_Loan Amount Distribution_**')
+		fig2c = ff.create_distplot(rawdf, ['loan_status'])
+		st.pyplot(fig2c)
 		fig2 = plt.figure(figsize=(6,6))
 		snsb = sns.histplot(x="loan_amnt", hue ='loan_status',data=rawdf, kde=True).set(title='Loan Amount Distribution')
 		plt.savefig('ouputb.png')
