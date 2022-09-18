@@ -74,6 +74,8 @@ with eda:
 	
 	if ddist == 'Overall Data':
 		st.markdown('**_Loan Data Distribution_**')
+		figa = px.histogram(rawdf, x="loan_status")
+		st.plotly_chart(figa)
 		fig1 = plt.figure(figsize=(8,8))
 		snsa = sns.countplot(x="loan_status", data=rawdf).set(title='Loan Data Distribution')
 		#snsa = px.histogram(rawdf,x='loan_status')
@@ -104,18 +106,9 @@ with eda:
 	#rawdf['loan_status'].value_counts().plot(kind='pie')
 	#st.pyplot(fig3)
 	st.markdown('**_Correlation Plot_**')
-	fig3c = px.imshow(rawdf.corr(), text_auto=True,width=1000, height=1000)
-	st.plotly_chart(fig3c)
-	fig3 = plt.figure(figsize=(10,10))
-	snsc = sns.heatmap(rawdf.corr(), annot=True, cmap="viridis")
-	plt.savefig('ouputc.png')
-	st.pyplot(fig3)
-	with open("ouputc.png", "rb") as file:
-     			btn = st.download_button(
-             		label="Download Plot",
-             		data=file,
-             		file_name="Correlation Plot.png",
-             		mime="image/png")
+	snsc = px.imshow(rawdf.corr(), text_auto=True,width=1000, height=1000)
+	st.plotly_chart(snsc)
+	
 	
 	
 	
