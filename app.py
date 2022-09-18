@@ -452,22 +452,27 @@ with modellr:
 
 with modelpred:
 	st.subheader('Predict Loan Application')
-	if auc_keras > auc_xg and auc_keras > auc_lr:
-		st.markdown('**_CNN Model used for Prediction_**')
-	if auc_xg > auc_keras and auc_xg > auc_lr:
-		st.markdown('**_Gradient Boost Model used for Prediction_**')
-	if auc_lr > auc_keras and auc_lr > auc_xg:
-		st.markdown('**_Logistic Regression Model used for Prediction_**')
-	#X['Id'] = range(1, len(X.index)+1)
-	#st.dataframe(rawdf.drop("loan_repaid", axis=1).head(10))
 	Z = rawdf.drop("loan_repaid", axis=1)
 	Z['Id'] = range(1, len(Z.index)+1)
 	Id_s = Z['Id'].unique().tolist()
 	idse = st.selectbox('Select Loan Id to Predict', Id_s, index=0, help='Select Loan Id for which the prediction has to be made')
 	lidse = Z.loc[Z['Id']==idse]
 	lidse = lidse.iloc[:,:-1]
-	ocome = (model.predict(lidse) > 0.5).astype("int32")
-	if ocome[0] == 1:
-		st.markdown('**Customer Will not default on their Loan**')
-	else:
-		st.markdown('**Customer May default on their Loan**')
+	st.dataframe(lidse)
+	if auc_keras > auc_xg and auc_keras > auc_lr:
+		st.markdown('**_CNN Model used for Prediction_**')
+		ocome = (model.predict(lidse) > 0.5).astype("int32")
+		if ocome[0] == 1:
+			st.markdown('**Customer Will not default on their Loan**')
+		else:
+			st.markdown('**Customer May default on their Loan**')
+	if auc_xg > auc_keras and auc_xg > auc_lr:
+		st.markdown('**_Gradient Boost Model used for Prediction_**')
+		ocome = clf.predict(lidse)
+		st.write('Gradient Bosst Prediction')
+		st.write(ocome)
+	if auc_lr > auc_keras and auc_lr > auc_xg:
+		st.markdown('**_Logistic Regression Model used for Prediction_**')
+
+	
+
