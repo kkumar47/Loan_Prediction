@@ -463,16 +463,24 @@ with modelpred:
 		st.markdown('**_CNN Model used for Prediction_**')
 		ocome = (model.predict(lidse) > 0.5).astype("int32")
 		if ocome[0] == 1:
-			st.markdown('**Customer Will not default on their Loan**')
+			st.success('Customer Will not default on their Loan', icon="🥳")
 		else:
-			st.markdown('**Customer May default on their Loan**')
+			st.success('Customer Will not default on their Loan', icon="🤢")
 	if auc_xg > auc_keras and auc_xg > auc_lr:
 		st.markdown('**_Gradient Boost Model used for Prediction_**')
 		ocome = clf.predict(lidse)
-		st.write('Gradient Bosst Prediction')
-		st.write(ocome)
+		if ocome[0] == 1:
+			st.success('Customer Will not default on their Loan', icon="🥳")
+		else:
+			st.success('Customer Will not default on their Loan', icon="🤢")
 	if auc_lr > auc_keras and auc_lr > auc_xg:
 		st.markdown('**_Logistic Regression Model used for Prediction_**')
+		ocome = logreg.predict(lidse)
+		if ocome[0] == 1:
+			st.success('Customer Will not default on their Loan', icon="🥳")
+		else:
+			st.success('Customer Will not default on their Loan', icon="🤢")
+	st.balloons()
 
 	
 
