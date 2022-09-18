@@ -232,6 +232,8 @@ with eda:
 	st.markdown('**_Correlation Plot with Encoded Loan Status-Loan Repaid_**')
 	fig9 = plt.figure(figsize=(8,8))
 	sampcorr =  rawdf.corr()["loan_repaid"].sort_values().drop("loan_repaid")
+	fig9c = px.bar(sampcorr)
+	st.plotly_chart(fig9c)
 	st.dataframe(sampcorr)
 	snsi = rawdf.corr()["loan_repaid"].sort_values().drop("loan_repaid").plot(kind="bar")
 	plt.savefig('ouputi.png')
