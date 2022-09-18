@@ -467,4 +467,4 @@ with modelpred:
 	lidse = Z.loc[Z['Id']==idse]
 	lidse = lidse.iloc[:,:-1]
 	ocome = (model.predict(lidse) > 0.5).astype("int32")
-	st.write(ocome)
+	st.write(type(ocome))
