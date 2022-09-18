@@ -323,21 +323,25 @@ with ttsplit:
 
 with featurei:	
 	st.subheader('Feature Importance using Random Forest')
-	with st.spinner('Computing Feature importance..'):
-		W = rawdf.drop("loan_repaid", axis=1)
-		z = rawdf["loan_repaid"]
-		W_train, W_test, z_train, z_test = train_test_split(W,z,test_size=0.25, random_state=42)
-		rf = RandomForestRegressor(n_estimators=150)
-		rf.fit(W_train, z_train)
-		sort = rf.feature_importances_.argsort()
-		sort = pd.DataFrame(sort, columns=['Score'])
-	st.success('Feature importance evaluated...Plotting results below', icon="✅")
-	sort['Feature Name'] = pd.DataFrame(W.columns)
-	#sort.rename({0:"Score"}, axis='columns')
-	#st.write(sort)
-	sort = sort.sort_values(by=['Score'])
-	snsfi = px.bar(sort, x="Score", y="Feature Name", orientation='h')
-	st.plotly_chart(snsfi)
+	feati = st.radio('Do you want to view Feature Importance?', ('No','Yes'))
+	if feati == 'No':
+		st.markdown('_Skipping Feature Importance_')
+	if feati =='Yes'
+		with st.spinner('Computing Feature importance..'):
+			W = rawdf.drop("loan_repaid", axis=1)
+			z = rawdf["loan_repaid"]
+			W_train, W_test, z_train, z_test = train_test_split(W,z,test_size=0.25, random_state=42)
+			rf = RandomForestRegressor(n_estimators=150)
+			rf.fit(W_train, z_train)
+			sort = rf.feature_importances_.argsort()
+			sort = pd.DataFrame(sort, columns=['Score'])
+		st.success('Feature importance evaluated...Plotting results below', icon="✅")
+		sort['Feature Name'] = pd.DataFrame(W.columns)
+		#sort.rename({0:"Score"}, axis='columns')
+		#st.write(sort)
+		sort = sort.sort_values(by=['Score'])
+		snsfi = px.bar(sort, x="Score", y="Feature Name", orientation='h')
+		st.plotly_chart(snsfi)
 	
 	
 
