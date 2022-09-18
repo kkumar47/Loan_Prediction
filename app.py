@@ -74,7 +74,7 @@ with eda:
 	
 	if ddist == 'Overall Data':
 		st.markdown('**_Loan Data Distribution_**')
-		figa = px.histogram(rawdf, x="loan_status")
+		figa = px.histogram(rawdf, x="loan_status", color="loan_status")
 		st.plotly_chart(figa)
 		fig1 = plt.figure(figsize=(8,8))
 		snsa = sns.countplot(x="loan_status", data=rawdf).set(title='Loan Data Distribution')
