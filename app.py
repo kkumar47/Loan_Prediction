@@ -53,7 +53,7 @@ with cred:
 	st.write('Credentials Correct')
   
 def raw_data():
-	return pd.read_csv('https://raw.githubusercontent.com/kkumar47/Loan_Prediction/master/lending_club_loan_two.csv', nrows=200000)
+	return pd.read_csv('https://raw.githubusercontent.com/kkumar47/Loan_Prediction/master/lending_club_loan_two.csv', nrows=100000)
 
 rawdf = raw_data()
 
@@ -455,6 +455,7 @@ with modellr:
 with modelpred:
 	st.subheader('Predict Loan Application')
 	Z = rawdf.drop("loan_repaid", axis=1)
+	Z = Z.head(500)
 	Z['Id'] = range(1, len(Z.index)+1)
 	Id_s = Z['Id'].unique().tolist()
 	idse = st.selectbox('Select Loan Id to Predict', Id_s, index=0, help='Select Loan Id for which the prediction has to be made')
