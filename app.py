@@ -409,7 +409,7 @@ with modele:
 with modelg:
 	st.subheader('Gradient Boost Model Training')
 	lrtx = st.slider('Select Learning Rate', min_value=0.1, max_value=1.5, value=0.5, step=0.05, help='Select Learning rate for the Optimizer')
-	est = st.slider ('Select Number of Estimators', min_value=300,max_value=1000, value=7500, step=50, help='Select Estimator Size' )
+	est = st.slider ('Select Number of Estimators', min_value=300,max_value=1500, value=1500, step=50, help='Select Estimator Size' )
 	with st.spinner('Training Gradient Boost Model...'):
 		
 		clf = GradientBoostingClassifier(n_estimators=est, learning_rate=lrtx,max_depth=1, random_state=0).fit(X_train, y_train)
