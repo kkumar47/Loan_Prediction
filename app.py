@@ -408,7 +408,7 @@ with modele:
 	#st.write(auc_keras)
 with modelg:
 	st.subheader('Gradient Boost Model Training')
-	lrtx = st.slider('Select Learning Rate', min_value=0.1, max_value=1.0, value=0.75, step=0.05, help='Select Learning rate for the Optimizer')
+	lrtx = st.slider('Select Learning Rate', min_value=0.01, max_value=1.0, value=0.75, step=0.01, help='Select Learning rate for the Optimizer')
 	est = st.slider ('Select Number of Estimators', min_value=300,max_value=1500, value=1000, step=50, help='Select Estimator Size' )
 	with st.spinner('Training Gradient Boost Model...'):
 		
