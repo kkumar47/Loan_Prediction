@@ -53,7 +53,7 @@ with cred:
 	st.write('Credentials Correct')
   
 def raw_data():
-	return pd.read_csv('https://raw.githubusercontent.com/kkumar47/Loan_Prediction/master/lending_club_loan_two.csv', nrows=150000)
+	return pd.read_csv('https://raw.githubusercontent.com/kkumar47/Loan_Prediction/master/lending_club_loan_two.csv', nrows=1500)
 
 rawdf = raw_data()
 
