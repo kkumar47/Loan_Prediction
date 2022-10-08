@@ -455,7 +455,7 @@ with modellr:
 with modelpred:
 	st.subheader('Predict Loan Application')
 	Z = rawdf.drop("loan_repaid", axis=1)
-	Z = Z.head(500)
+	Z = Z.head(1000)
 	Z['Id'] = range(1, len(Z.index)+1)
 	Id_s = Z['Id'].unique().tolist()
 	idse = st.selectbox('Select Loan Id to Predict', Id_s, index=0, help='Select Loan Id for which the prediction has to be made')
